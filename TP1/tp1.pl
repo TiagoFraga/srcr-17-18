@@ -23,50 +23,101 @@ solucoes(T,Q,S) :- findall(T,Q,S).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do predicado utente: IdUt, Nome, Idade, Morada -> {V,F}
 
-utente(1,Tiago,23,Esposende).
-utente(2,Cesario,21,Valenca).
-utente(3,Luis,22,Viana).
-utente(4,Gomes,21,VilaReal).
-utente(5,Reis,21,PonteLima).
-utente(6,Chavez,22,Viana).
-utente(7,Neves,22,Viana).
-utente(8,Marcos,22,Viana).
-utente(9,Sunga,22,Viana).
-utente(10,Marcos,22,Viana).
-utente(11,Pedro,22,Viana).
-utente(12,Rua,22,Montalegre).
-utente(13,Antonio,23,Esposende).
-utente(14,Pedro,23,Esposende).
-utente(15,Miguel,23,Esposende).
-utente(16,Brahimi,23,Olival).
-utente(17,Marega,23,Olival).
-utente(18,Soares,23,Olival).
-utente(19,Danilo,23,Olival).
-utente(20,Aboubakar,23,Olival).
+utente(1,'Tiago',23,morada('Rua 1','Esposende')).
+utente(2,'Cesario',21,morada('Rua 2','Valença')).
+utente(3,'Luis',22,morada('Rua 3','Viana')).
+utente(4,'Rui',21,morada('Rua 4','Braga')).
+utente(5,'Marega',27,morada('Rua 5','Porto')).
+utente(6,'Tiquinho',25,morada('Rua 6','Porto')).
+utente(7,'Brahimi',26,morada('Rua 7','Olival')).
+utente(8,'Aboubakar',26,morada('Rua 8','Olival')).
+utente(9,'Danilo',25,morada('Rua 9','Porto')).
+utente(10,'Herrera',25,morada('Rua 10','Porto')).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do predicado prestador: IdPrest, Nome, Espcialidade, Instituição -> {V,F}
 
+prestador(1,'Nelon Puga','Desporto',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
+prestador(2,'Joaquim','Cardiologia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
+prestador(3,'Antonio','Fisioterapia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
+prestador(4,'Pedro','Radiologia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
+prestador(5,'Manuel','Oftalmogia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
 
+prestador(6,'Ines','Cardiologia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
+prestador(7,'Joana','Cirurgia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
+prestador(8,'Maria','Radiologia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
+prestador(9,'Diana','Oftalmogia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
+prestador(10,'Ana','Fisioterapia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
 
-
-
-
-
-
-
-
+prestador(11,'Carlos','Cardiologia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
+prestador(12,'Tomas','Cirurgia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
+prestador(13,'Raquel','Radiologia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
+prestador(14,'Luisa','Oftalmogia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
+prestador(15,'Teresa','Fisioterapia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do predicado cuidado: Data, IdUt, IdPrest, Descrição, Custo -> {V,F}
 
+cuidado(data(10,02,2018),1,9,'Consulta Rotina',30).
+cuidado(data(10,02,2018),2,9,'Consulta Rotina',30).
+cuidado(data(10,02,2018),3,9,'Consulta Rotina',30).
+cuidado(data(10,02,2018),4,9,'Consulta Rotina',30).
+cuidado(data(11,02,2018),5,9,'Consulta Rotina',30).
+
+cuidado(data(15,02,2018),5,1,'Consulta Pos-Match',10).
+cuidado(data(15,02,2018),6,1,'Consulta Pos-Match',10).
+cuidado(data(15,02,2018),7,1,'Consulta Pos-Match',10).
+cuidado(data(15,02,2018),8,1,'Consulta Pos-Match',10).
+cuidado(data(15,02,2018),9,1,'Consulta Pos-Match',10).
+
+cuidado(data(16,02,2018),5,11,'Eletrocardiograma',20).
+cuidado(data(16,02,2018),6,11,'Eletrocardiograma',20).
+cuidado(data(16,02,2018),7,11,'Eletrocardiograma',20).
+cuidado(data(17,02,2018),10,15,'Fisio - Coxa Direita',10).
+cuidado(data(17,02,2018),8,15,'Fisio - Gemeo Esq',10).
+
+cuidado(data(18,03,2018),10,13,'Raio X',50).
+cuidado(data(10,03,2018),5,1,'Consulta Pos-Match',10).
+cuidado(data(10,03,2018),7,1,'Consulta Pos-Match',10).
+cuidado(data(10,03,2018),8,1,'Consulta Pos-Match',10).
+cuidado(data(10,03,2018),9,1,'Consulta Pos-Match',10).
+
+cuidado(data(12,03,2018),6,15,'Fisio - Coxa Esq',10).
+cuidado(data(12,03,2018),7,15,'Fisio - Joelho Dir',10).
+cuidado(data(12,03,2018),8,15,'Fisio - Costas',10).
+cuidado(data(12,03,2018),9,15,'Fisio - Virilha',10).
+cuidado(data(12,03,2018),10,15,'Fisio - Coxa Dir',10).
+
+cuidado(data(20,02,2018),1,9,'Consulta',30).
+cuidado(data(20,02,2018),2,6,'Eletrocardiograma',25).
+cuidado(data(20,02,2018),3,7,'Intervenção',30).
+cuidado(data(20,02,2018),4,8,'Consulta Rotina',30).
+cuidado(data(20,02,2018),5,5,'Consulta Rotina',30).
 
 
 
 
+% Extensao do predicado data: Dia,Mes,Ano -> {V,F}
 
+data(D, M, A) :- pertence(M, [1,3,5,7,8,10,12]), D >= 1, D =< 31.
+data(D, M, A) :- pertence(M, [4,6,9,11]), D >= 1, D =< 30.
+data(D, 2, A) :- A mod 4 =\= 0, D >= 1, D =< 28.
+data(D, 2, A) :- A mod 4 =:= 0, D >= 1, D =< 29.
+
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado instituicao: Nome,Morada -> {V,F}
+
+instituicao('Clinica do Dragao', morada('Rua das Antas','Porto')).
+instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto')).
+
+instituicao('Hospital Braga', morada('Rua do Hospital','Braga')).
+instituicao('Centro Saude', morada('Rua Centro','Braga')).
+
+instituicao('Hospital Viana', morada('Rua do Hospital','Viana')).
+instituicao('Hospital Esposende', morada('Rua do Hospital', 'Esposende')).
 
 
 
@@ -87,7 +138,6 @@ utente(20,Aboubakar,23,Olival).
 
 
 +utente(ID,N,I,M) :: (solucoes( (ID), (utente(ID,Ns,Is,Ms)),S), comprimento(S,N), N==1).
-+utente(ID,N,I,M) :: (solucoes( (N),(utente(IDs,N,Is,Ms)),S), comprimento(S,N),N==1).
 
 
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
@@ -96,7 +146,6 @@ utente(20,Aboubakar,23,Olival).
 %								2- Pelo Nome.
 
 +prestador(ID,N,E,I) :: (solucoes( (ID), (prestador(ID,Ns,Es,Is)), S),comprimento(S,N),N==1).
-+prestador(ID,N,E,I) :: (solucoes( (N), (prestador(IDs,N,Es,Is)), S),comprimento(S,N),N==1).
 
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
 % Pode estar repetido, quando se verifica em simultaneo igualdades na:
@@ -114,6 +163,16 @@ utente(20,Aboubakar,23,Olival).
 +cuidado(Dt,IDU,IDP,D,C) :: (solucoes( (IDU),(utente(IDU,Ns,Is,Ms)),S),comprimento(S,N),N==0).
 +cuidado(Dt,IDU,IDP,D,C) :: (solucoes( (IDP),(prestador(IDP,Ns,Es,Is)),S),comprimento(S,N),N==0).
 
+
+
++instituicao(N,M) :: (solucoes( (N), instituicao(N,M) ,S), N==1).
+
+-instituicao(N,M) :: (solucoes( (N,M), prestador(_,_,_,(N,M)) , S), N==0).
+
+
+
+
+
 %---------------------------------
 
 insercao(T) :- assert(T).
@@ -129,9 +188,6 @@ registar( Termo ) :-
 	solucoes( Invariante,+Termo::Invariante,Lista), 
 				insercao(Termo), 
 					teste(Lista).
-
-
-
 
 
 
@@ -201,8 +257,9 @@ ponto_tres(moradas,R) :- solucoes((M),utente(IDs,Ns,Is,M),R).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
+ponto_quatro(todas,R) :- solucoes( (N) , instituicao(N,M), R).
 
-ponto_quatro(R) :- solucoes( (I), prestador(IDP,N,E,I) , R).
+ponto_quatro(cuidados,R) :- solucoes( (N), (cuidado(_,_,IDP,_,_),prestador(IDP,_,_,instituicao(N,M))) , S),unicos(S,R).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
@@ -213,44 +270,20 @@ ponto_quatro(R) :- solucoes( (I), prestador(IDP,N,E,I) , R).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
-ordena_cuidados_Inst([],[]).
-ordena_cuidados_Inst([IDP|T],R) :- solucoes( (Dt,IDU,IDP,D,C) , cuidados(Dt,IDU,IDP,D,C), S),
-										S==[],
-										ordena_cuidados_Inst(T,R).
-ordena_cuidados_Inst([IDP|T],[S|R]) :- solucoes( (Dt,IDU,IDP,D,C) , cuidados(Dt,IDU,IDP,D,C), S),
-										S\=[],
-										ordena_cuidados_Inst(T,R).
 
-
-ponto_cinco(inst,X,R) :- solucoes( (IDP), prestador(IDP,N,E,X), S),
-							ordena_cuidados_Inst(S,R).
-
+ponto_cinco(inst,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (prestador(IDP,_,_,instituicao(X,_)) , cuidado(Dt,IDU,IDP,D,C) ), S), unicos(S,R).
 
 %--------------------------------- 
 
+ponto_cinco(cidade,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (prestador(IDP,_,_,instituicao(_,morada(_,X))) , cuidado(Dt,IDU,IDP,D,C) ), S), unicos(S,R).
 
-
-ordena_cuidados_Cidade([],[]).
-ordena_cuidados_Cidade([IDU|T],R) :- solucoes( (Dt,IDU,IDP,D,C) , cuidados(Dt,IDU,IDP,D,C), S),
-										S==[],
-										ordena_cuidados_Cidade(T,R).
-ordena_cuidados_Cidade([IDU|T],[S|R]) :- solucoes( (Dt,IDU,IDP,D,C) , cuidados(Dt,IDU,IDP,D,C), S),
-										S\=[],
-										ordena_cuidados_Cidade(T,R).
-
-
-ponto_cinco(cidade,X,R) :- solucoes( (IDU), utente(IDU,N,I,X) , S),
-							ordena_cuidados_Cidade(S,R).   
-
+% *** outra_versao -> que nao faz tanto sentido ***
+% ponto_cinco(cidade,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (utente(IDU,_,_,morada(_,X)) , cuidado(Dt,IDU,IDP,D,C) ), S), unicos(S,R).
 
 %--------------------------------- 
 
 
 ponto_cinco(data,X,R) :- solucoes( (X,IDU,IDP,D,C) , cuidado(X,IDU,IDP,D,C) , R).
-
-
-
-
 
 
 
@@ -263,32 +296,18 @@ ponto_cinco(data,X,R) :- solucoes( (X,IDU,IDP,D,C) , cuidado(X,IDU,IDP,D,C) , R)
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-
-
-
-ponto_seis(prest,X,R) :- solucoes( (IDU), cuidado(Dt,IDU,X,D,C) , R).
+ponto_seis(prest,X,R) :- solucoes( (IDU,N), ( cuidado(Dt,IDU,X,D,C),utente(IDU,N,_,_)), S), unicos(S,R).
 
 %--------------------------------- 
 
-ordena_cuidados_Utente([],[]).
-ordena_cuidados_Utente([IDP|T],R) :- solucoes( (IDU) , cuidados(Dt,IDU,IDP,D,C), S),
-										S==[],
-										ordena_cuidados_Utente(T,R).
-ordena_cuidados_Utente([IDP|T],[S|R]) :- solucoes( (IDU) , cuidados(Dt,IDU,IDP,D,C), S),
-										S\=[],
-										ordena_cuidados_Utente(T,R).
 
-
-ponto_seis(esp,X,R) :- solucoes( (IDP), prestador(IDP,N,X,I) , S),
-						ordena_cuidados_Utente(S,R).
+ponto_seis(esp,X,R) :- solucoes( (IDU,N), ( prestador(IDP,_,X,_), cuidado(_,IDU,IDP,_,_), utente(IDU,N,_,_)), S), unicos(S,R).  
 
 
 %--------------------------------- 
 
 
-ponto_seis(inst,X,R) :- solucoes( (IDP), prestador(IDP,N,E,X) , S),
-						ordena_cuidados_Utente(S,R).
-
+ponto_seis(inst,X,R) :- solucoes( (IDU,N), ( cuidado(_,IDU,_,_,instituicao(X,_)), utente(IDU,N,_,_)), S),unicos(S,R).
 
 
 
@@ -302,20 +321,15 @@ ponto_seis(inst,X,R) :- solucoes( (IDP), prestador(IDP,N,E,X) , S),
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-
-ponto_sete(utente,X,R) :- solucoes( (Dt,X,IDP,D,C) , cuidado(Dt,X,IDP,D,C) ,R).
-
-%--------------------------------- 
-
-
-ponto_sete(inst,X,R) :- solucoes( (IDP), prestador(IDP,N,E,X), S),
-						ordena_cuidados_Inst(S,R).
-
+ponto_sete(utente,X,R) :- solucoes( (Dt,X,IDP,D,C), cuidado(Dt,X,IDP,D,C), S), unicos(S,R).
 
 %--------------------------------- 
 
+ponto_sete(inst,X,R) :- solucoes( (Dt,IDU,IDP,D,C), ( prestador(IDP,_,_,instituicao(X,_)), cuidado(Dt,IDU,IDP,D,C)),S),unicos(S,R).
 
-ponto_sete(prest,X,R) :- solucoes( (Dt,IDU,X,D,C), cuidado(Dt,IDU,X,D,C), R).
+%--------------------------------- 
+
+ponto_sete(prest,X,R) :- solucoes( (Dt,IDU,X,D,C), cuidado(Dt,IDU,X,D,C), S), unicos(S,R).
 
 
 
@@ -327,29 +341,12 @@ ponto_sete(prest,X,R) :- solucoes( (Dt,IDU,X,D,C), cuidado(Dt,IDU,X,D,C), R).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
-
-idpToInst(X,[(IDP,I)|T],I) :- X==IDP.
-idpToInst(X,[(IDP,I)|T],R) :- X\=IDP, idpToInst(X,T,R).
-
-
-altera_prestadores_IDP_INST([],L,[]).
-altera_prestadores_IDP_INST([IDP|T],L,[S|R]) :- idpToInst(IDP,L,S), altera_prestadores_IDP_INST(T,L,R). 
-
-
-
-ponto_oito(inst,X,R) :- solucoes( (IDP) , cuidado(Dt,X,IDP,D,C), S),
-						solucoes( (IDP2,Inst) , prestador(IDP2,N,E,Inst), S2),
-						altera_prestadores_IDP_INST(S,S2,R).
-
-
+ponto_oito(inst,U,R) :- solucoes( (N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,_,_,instituicao(N,_))) ,S) , unicos(S,R).
 
 
 %--------------------------------- 
 
-ponto_oito(pres,X,R) :- solucoes( (IDP) , cuidado(Dt,X,IDP,D,C), R).
-
-
-
+ponto_oito(inst,U,R) :- solucoes( (ID,N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,N,_,_) ,S)) , unicos(S,R).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
@@ -361,48 +358,24 @@ ponto_oito(pres,X,R) :- solucoes( (IDP) , cuidado(Dt,X,IDP,D,C), R).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-
-somaTotal( [],0 ).
-somaTotal( [X],X ).
-somaTotal( [X|L],R ) :- somaL( L,R1 ), R is X+R1.
-
-
-
-ponto_nove(utente,X,R) :- solucoes( (C), cuidado(Dt,X,IDP,D,C), S),
-							somaTotal(S,R).
+ponto_nove(utente,X,R) :- solucoes( (C), cuidado(Dt,X,IDP,D,C), S), somaTotal(S,R).
 
 
 %--------------------------------- 
 
 
-idpToInst(X,[(IDP,C)|T],C) :- X==IDP.
-idpToInst(X,[(IDP,C)|T],R) :- X\=IDP, idpToInst(X,T,R).
-
-
-altera_cuidados_IDP_CUSTO([],L,[]).
-altera_cuidados_IDP_CUSTO([IDP|T],L,[S|R]) :- idpToCusto(IDP,L,S), altera_cuidados_IDP_CUSTO(T,L,R). 
-
-
-ponto_nove(esp,X,R) :- solucoes( (IDP), prestador(IDP,N,X,I),S),
-						solucoes( (IDP2,C), cuidado(Dt,IDU,IDP2,D,C), S2),
-						altera_cuidados_IDP_CUSTO(S,S2,S3),
-						somaTotal(S3,R).
-
+ponto_nove(esp,X,R) :- solucoes( (C), (prestador(IDP,_,X,_), cuidado(_,_,IDP,_,C)) , S), somaTotal(S,R).
 
 
 %--------------------------------- 
 
 
-
-ponto_nove(prest,X,R) :- solucoes( (C), cuidado(Dt,IDU,X,D,C), S),
-							somaTotal(S,R). 
+ponto_nove(prest,X,R) :- solucoes( (C), cuidado(Dt,IDU,X,D,C), S), somaTotal(S,R). 
 
 
 %--------------------------------- 
 
-ponto_nove(data,X,R) :- solucoes( (C), cuidado(X,IDU,IDP,D,C), S),
-							somaTotal(S,R).
-
+ponto_nove(data,X,R) :- solucoes( (C), cuidado(X,IDU,IDP,D,C), S), somaTotal(S,R).
 
 
 
@@ -416,9 +389,39 @@ ponto_nove(data,X,R) :- solucoes( (C), cuidado(X,IDU,IDP,D,C), S),
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado nao: Q -> {V,F}
+
+nao(Q) :- Q, !, fail.
+nao(Q).
 
 
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado utente: X, L -> {V,F}
 
+pertence(H,[H|T]).
+pertence(X,[H|T]) :-
+	X \= H,
+	pertence(X,T).
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado utente: L, R -> {V,F}
+
+unicos([],[]).
+unicos([H|T], R) :-
+	pertence(H,T),
+	unicos(T,R).
+unicos([H|T], [H|R]) :-
+	nao(pertence(H,T)),
+	unicos(T,R).
+
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado somaTotal: Lista,Resultado -> {V,F}
+
+somaTotal( [],0 ).
+somaTotal( [X],X ).
+somaTotal( [X|L],R ) :- somaTotal( L,R1 ), R is X+R1.
 
 
 
