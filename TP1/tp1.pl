@@ -165,11 +165,18 @@ instituicao('Hospital Esposende', morada('Rua do Hospital', 'Esposende')).
 
 
 
+% Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
+% Pode estar repetido de duas formas :
+%								1- Pelo Nome da instituição.
+
 +instituicao(N,M) :: (solucoes( (N), instituicao(N,M) ,S), N==1).
 
+
+% Invariante Estrutural:  nao permitir a remoção de conhecimento
+% Nao se pode remover conhecimento de prestador quando:
+%						1- Ha conhecimento de instituicao nos prestadores.
+
 -instituicao(N,M) :: (solucoes( (N,M), prestador(_,_,_,(N,M)) , S), N==0).
-
-
 
 
 
