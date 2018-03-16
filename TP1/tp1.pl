@@ -271,14 +271,13 @@ ponto_quatro(cuidados,R) :- solucoes( (N), (cuidado(_,_,IDP,_,_),prestador(IDP,_
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-ponto_cinco(inst,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (prestador(IDP,_,_,instituicao(X,_)) , cuidado(Dt,IDU,IDP,D,C) ), S), unicos(S,R).
+ponto_cinco(inst,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (prestador(IDP,_,_,instituicao(X,_)) , cuidado(Dt,IDU,IDP,D,C) ), R).
 
 %--------------------------------- 
 
-ponto_cinco(cidade,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (prestador(IDP,_,_,instituicao(_,morada(_,X))) , cuidado(Dt,IDU,IDP,D,C) ), S), unicos(S,R).
-
+ponto_cinco(cidade,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (prestador(IDP,_,_,instituicao(_,morada(_,X))) , cuidado(Dt,IDU,IDP,D,C) ), R).
 % *** outra_versao -> que nao faz tanto sentido ***
-% ponto_cinco(cidade,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (utente(IDU,_,_,morada(_,X)) , cuidado(Dt,IDU,IDP,D,C) ), S), unicos(S,R).
+% ponto_cinco(cidade,X,R) :- solucoes( (Dt,IDU,IDP,D,C) , (utente(IDU,_,_,morada(_,X)) , cuidado(Dt,IDU,IDP,D,C) ), R).
 
 %--------------------------------- 
 
@@ -296,7 +295,7 @@ ponto_cinco(data,X,R) :- solucoes( (X,IDU,IDP,D,C) , cuidado(X,IDU,IDP,D,C) , R)
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-ponto_seis(prest,X,R) :- solucoes( (IDU,N), ( cuidado(Dt,IDU,X,D,C),utente(IDU,N,_,_)), S), unicos(S,R).
+ponto_seis(prest,X,R) :- solucoes( (IDU,N), ( cuidado(_,IDU,X,_,_),utente(IDU,N,_,_)), S), unicos(S,R).
 
 %--------------------------------- 
 
