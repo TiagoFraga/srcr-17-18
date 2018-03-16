@@ -327,15 +327,15 @@ ponto_seis(inst,X,R) :- solucoes( (IDU,N), ( cuidado(_,IDU,_,_,instituicao(X,_))
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-ponto_sete(utente,X,R) :- solucoes( (Dt,X,IDP,D,C), cuidado(Dt,X,IDP,D,C), S), unicos(S,R).
+ponto_sete(utente,X,R) :- solucoes( (Dt,X,IDP,D,C), cuidado(Dt,X,IDP,D,C), R).
 
 %--------------------------------- 
 
-ponto_sete(inst,X,R) :- solucoes( (Dt,IDU,IDP,D,C), ( prestador(IDP,_,_,instituicao(X,_)), cuidado(Dt,IDU,IDP,D,C)),S),unicos(S,R).
+ponto_sete(inst,X,R) :- solucoes( (Dt,IDU,IDP,D,C), ( prestador(IDP,_,_,instituicao(X,_)), cuidado(Dt,IDU,IDP,D,C)),R).
 
 %--------------------------------- 
 
-ponto_sete(prest,X,R) :- solucoes( (Dt,IDU,X,D,C), cuidado(Dt,IDU,X,D,C), S), unicos(S,R).
+ponto_sete(prest,X,R) :- solucoes( (Dt,IDU,X,D,C), cuidado(Dt,IDU,X,D,C), R).
 
 
 
@@ -352,7 +352,7 @@ ponto_oito(inst,U,R) :- solucoes( (N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,_,
 
 %--------------------------------- 
 
-ponto_oito(inst,U,R) :- solucoes( (ID,N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,N,_,_) ,S)) , unicos(S,R).
+ponto_oito(prest,U,R) :- solucoes( (ID,N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,N,_,_) ,S)) , unicos(S,R).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -

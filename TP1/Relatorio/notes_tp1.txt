@@ -136,13 +136,145 @@ EXTENSAO DO PREDICADO(parte direita):
 
 	2- No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de prestadores cuja especialidade seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os cuidados que contenham um IDP igual ao referido. A seguir 'guardamos' o IDU de todos os cuidados que fizeram o match referido para voltar a fazer um match com as ocorrencias de todos os utentos. Por fim, como no primeiro argumento definimos que queriamos o IDU e o Nome dos utentes, estes sao guardados numa lista auxiliar, para depois serem passados no predicado unicos
 
-	No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de cuidados cujo nome da instituiçãoseja igual ao colocado na conclusão, 'guardamos' o IDU de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os utentes que contenham um IDU igual ao referido. Por fim, como no primeiro argumento definimos que queriamos o IDU e o Nome dos utentes, estes sao guardados numa lista auxiliar, para depois serem passados no predicado unicos
+	3- No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de cuidados cujo nome da instituiçãoseja igual ao colocado na conclusão, 'guardamos' o IDU de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os utentes que contenham um IDU igual ao referido. Por fim, como no primeiro argumento definimos que queriamos o IDU e o Nome dos utentes, estes sao guardados numa lista auxiliar, para depois serem passados no predicado unicos
 
 
 
 
 
 	O RESTO É SO SEGUIR A MESMA LINHA DE PENSAMENTO É SEMPRE IGUAL
+
+
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Setimo ponto
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+
+
+1 - ponto_sete(utente,X,R) :- solucoes( (Dt,X,IDP,D,C), cuidado(Dt,X,IDP,D,C), S), unicos(S,R).
+
+%--------------------------------- 
+
+2 - ponto_sete(inst,X,R) :- solucoes( (Dt,IDU,IDP,D,C), ( prestador(IDP,_,_,instituicao(X,_)), cuidado(Dt,IDU,IDP,D,C)),S),unicos(S,R).
+
+%--------------------------------- 
+
+3 - ponto_sete(prest,X,R) :- solucoes( (Dt,IDU,X,D,C), cuidado(Dt,IDU,X,D,C), S), unicos(S,R).
+
+
+RESPOSTA (CONCLUSAO DO PREDICADO, parte esquerda) : 
+	
+	1- Lista com todos os cuidados de saude que tenham sido feitos ao utente que é fornecida á conclusão. Na conclusão é fornecido o ID pq é o identificador unico dos utentes na nossa base de conhecimento.
+	2- Lista com todos os cuidados de saude que tenham sido feitos na instituição que é fornecida á conclusão.Na conclusão é fornecido o nome pq é o identificador unico das instituições na nossa base de conhecimento.
+	3- Lista com todos os cuidados de saude que tenham sido feitos pelo prestador que é fornecida á conclusão. Na conclusão é fornecido o ID pq é o identificador unico dos prestadores na nossa base de conhecimento.
+
+	Decidimos que a resposta apresentada, ou seja, a lista com todos os cuidados, estes iam ser definidos pela data, o IDU, o IDP, a descrição e o custo, ou seja todos os seus argumentos, definimos portanto que para definir um cuidado de saude, este so é definido por todos os seus argumentos.
+
+
+
+EXTENSAO DO PREDICADO(parte direita): 
+
+	1-No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cujo IDU seja igual ao que esta na conclusao. Como no primeiro argumento do predicado soluções estao todos os paramentos do predicado cuidado, pois é assim que definimos os cuidados, o resultado vai ser essa lista.
+
+	2 - No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de prestador cujo nome da instituição seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os cuidados que contenham um IDP igual ao referido. Por fim, como no primeiro argumento definimos que queriamos todos os argumentos do predicado cuidado e estes sao guardados na resposta.
+
+
+	3-No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cujo IDP seja igual ao que esta na conclusao. Como no primeiro argumento do predicado soluções estao todos os paramentos do predicado cuidado, pois é assim que definimos os cuidados, o resultado vai ser essa lista.
+
+
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Oitavo ponto
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+
+1 - ponto_oito(inst,U,R) :- solucoes( (N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,_,_,instituicao(N,_))) ,S) , unicos(S,R).
+
+
+%--------------------------------- 
+
+2 - ponto_oito(prest,U,R) :- solucoes( (ID,N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,N,_,_) ,S)) , unicos(S,R).
+
+
+RESPOSTA (CONCLUSAO DO PREDICADO, parte esquerda) : 
+	
+	1- Lista com todos as instituições que tenham sido frequentadas por um utente. Na conclusao é inserido o ID do utente pois é o identificador unico do utente na nossa base de conhecimento. A resposta é uma lista com o nome das instituições pois, é o identificador unico das instituiçoes da nossa base de conhecimento.
+	2- Lista com todos os prestadores de saude que tenham prestado serviços a um dado utente.Na conclusao é inserido o ID do utente pois é o identificador unico do utente na nossa base de conhecimento. A resposta é uma lista com o id e o nome dos prestadores, o id é o identificador unico dos prestadores na nossa base de conhecimento, no entanto, achamos que era curto para definir com informação suficiente um prestador, como tal, decidimos descreve-lo com o id e o nome, este ultimo nao é um identificador unico.
+	
+
+
+
+EXTENSAO DO PREDICADO(parte direita): 
+
+
+	1 - No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de cuidado cujo IDU seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os prestadores que contenham um IDP igual ao referido, e como no primeiro argumento do predicado solucçoes especificamos que queremos o nome das instituiçoes, colocamos em evidencia no segundo argumento o que pretendemos para ser guardado na lista auxiliar para ser passada a limpo no predicado unicos.  
+
+
+	2-No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de cuidado cujo IDU seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os prestadores que contenham um IDP igual ao referido, e como no primeiro argumento do predicado solucçoes especificamos que queremos o id e o nome do prestador, colocamos em evidencia no segundo argumento o que pretendemos para ser guardado na lista auxiliar para ser passada a limpo no predicado unicos.  
+
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Nono ponto
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+
+
+1 - ponto_nove(utente,X,R) :- solucoes( (C), cuidado(Dt,X,IDP,D,C), S), somaTotal(S,R).
+
+
+%--------------------------------- 
+
+
+2- ponto_nove(esp,X,R) :- solucoes( (C), (prestador(IDP,_,X,_), cuidado(_,_,IDP,_,C)) , S), somaTotal(S,R).
+
+
+%--------------------------------- 
+
+
+3 - ponto_nove(prest,X,R) :- solucoes( (C), cuidado(Dt,IDU,X,D,C), S), somaTotal(S,R). 
+
+
+%--------------------------------- 
+
+4 - ponto_nove(data,X,R) :- solucoes( (C), cuidado(X,IDU,IDP,D,C), S), somaTotal(S,R).
+
+
+
+
+RESPOSTA (CONCLUSAO DO PREDICADO, parte esquerda) : 
+	
+	1- Valor da soma total de todos os cuidados de saude efetuados por utente, passado como argumento na conclusao. Como o identificador unico dos utentes na nossa base de conhecimento é o ID, entao decidimos fornecer o ID á conclusao.
+	
+	2-Valor da soma total de todos os cuidados de saude efetuados por utente, passado como argumento na conclusao. A especialidade é um argumento do predicado prestador, logo tem de ser passada como esta na base de conhecimento.
+
+	3- Valor da soma total de todos os cuidados de saude efetuados por um prestador, passado como argumento na conclusao. Como o identificador unico dos prestadores na nossa base de conhecimento é o ID, entao decidimos fornecer o ID á conclusao.
+
+	4- Valor da soma total de todos os cuidados de saude efetuados por utente, passado como argumento na conclusao. EXPLICAS O PREDICADO DATA AQUI !!!
+
+
+
+EXTENSAO DO PREDICADO(parte direita): 
+
+	1-No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cujo IDU seja igual ao que esta na conclusao. Como no primeiro argumento do predicado soluções esta o argumento custo, guardamos todos os custos numa lista e fazemos a soma total da lista e colocamos o resultado no argumento R.
+
+	2 - No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de prestador cujo IDP seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os cuidados que contenham um IDP igual ao referido, e como no primeiro argumento do predicado solucçoes especificamos que queremos custo dos cuidados, guardamos todos os custos numa lista e fazemos a soma total da lista e colocamos o resultado no argumento R.
+
+	3-No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cujo IDP seja igual ao que esta na conclusao. Como no primeiro argumento do predicado soluções esta o argumento custo, guardamos todos os custos numa lista e fazemos a soma total da lista e colocamos o resultado no argumento R.
+
+	4--No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cuja data seja igual ao que esta na conclusao. Como no primeiro argumento do predicado soluções esta o argumento custo, guardamos todos os custos numa lista e fazemos a soma total da lista e colocamos o resultado no argumento R.
+
+
+
 
 
 
