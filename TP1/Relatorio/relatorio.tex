@@ -1,16 +1,51 @@
-\documentclass[a4paper]{report} % estilo do documento
-\usepackage[utf8]{inputenc} %encoding do ficheiro
-\usepackage[portuges]{babel} % para língua portuguesa
-\usepackage{graphicx} % para importar imagens
-\usepackage{indentfirst}
-\usepackage{enumitem}
-\newlist{arrowlist}{itemize}{1}
-\setlist[arrowlist]{label=$\Rightarrow$}
-
-\begin{document}
-
-\title{Sistemas de Representação de Conhecimento e Raciocínio\\Exercício 1\\Relatorio de Desenvolvimento}
-\author{Grupo 18\\
+%
+% Layout retirado de http://www.di.uminho.pt/~prh/curplc09.html#notas
+%
+\documentclass{report}
+\usepackage[portuges]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{fancyvrb}
+ 
+%\usepackage{alltt}
+%\usepackage{fancyvrb}
+\usepackage{listings}
+%LISTING - GENERAL
+\lstset{
+    basicstyle=\small,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    breaklines=true,
+   frame=tB,
+    mathescape=true,
+    escapeinside={(*@}{@*)}
+}
+ 
+\usepackage{xspace}
+ 
+\parindent=0pt
+\parskip=2pt
+ 
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\textwidth}{18cm}
+\setlength{\headsep}{-1cm}
+\setlength{\textheight}{23cm}
+ 
+\def\darius{\textsf{Darius}\xspace}
+\def\antlr{\texttt{AnTLR}\xspace}
+\def\pe{\emph{Publicação Eletrónica}\xspace}
+ 
+\def\titulo#1{\section{#1}}
+\def\super#1{{\em Supervisor: #1}\\ }
+\def\area#1{{\em \'{A}rea: #1}\\[0.2cm]}
+\def\resumo{\underline{Resumo}:\\ }
+ 
+ 
+ 
+\title{Sistemas de Representação de Conhecimento e Raciocínio\\ \textbf{Exercício 1}\\ Relatório de Desenvolvimento}
+\author{\textbf{Grupo 18}\\
 \\
 \\
 Cesário Miguel Pereira Perneta - A73883
@@ -20,140 +55,737 @@ Luís Miguel Bravo Ferraz - A70824
 Tiago Miguel Fraga Santos - A74092
 \\
 Rui Pedro Barbosa Rodrigues - A74572}
-
 \date{\today}
-
+ 
+\begin{document}
+ 
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{xleftmargin=.5in}
+ 
 \maketitle
-
+ 
+\begin{abstract}
+Neste relatório irá ser abordado a resolução e verificação do primeiro trabalho prático da Unidade Curricular de Sistemas de Representação de Conhecimento e Raciocínio.
+Será possível encontrar uma detalhada explicação dos predicados elaborados, bem como a apresentação do código usado na representação dos predicados fundamentais, que visam dar resposta aos requisitos propostos neste trabalho prático.
+\end{abstract}
+ 
 \tableofcontents
 
-\chapter{Introdução}
+\chapter{Introdução} \label{intro}
 
-Neste primeiro exercício do trabalho de grupo, temos como objectivo desenvolver um sistema de representação de conhecimento e raciocínio que tenha a capacidade de caracterizar um universo de discurso na área da prestação de cuidados de saúde. Para tal usou-se o método sugerido no enunciado para a caracterização de conhecimento, onde temos \textit{utente}, \textit{prestador} e \textit{cuidado}, os quais foram usados para a demonstração das várias funcionalidades.
- 
-\chapter{Desenvolvimento}
+Como primeiro exercício desta unidade curricular, temos como objectivo desenvolver um sistema de representação de conhecimento e raciocínio que tenha a capacidade de caracterizar um universo de discurso na área da prestação de cuidados de saúde. Para tal usou-se o método sugerido no enunciado para a caracterização de conhecimento, onde temos \textbf{utente}, \textbf{prestador} e \textbf{cuidado}, os quais foram usados para a demonstração das várias funcionalidades. Em baixo, é possivel visualizar a forma como está definida a nossa \textbf{base de conhecimento}.
 
-Neste capítulo iremos explicar o trabalho que foi desenvolvido, através de exemplos de codigo seguido da explicação do mesmo.
-
-\section{Base de Conhecimento}
-\subsection{Utentes}
-\textit{utente: \#IdUt, Nome, Idade, Morada $\rightarrow$ \{V,F\}}
-\begin{itemize}
-\item utente(1,'Tiago',23,morada('Rua 1','Esposende')).
-\item utente(2,'Cesario',21,morada('Rua 2','Valença')).
-\item utente(3,'Luis',22,morada('Rua 3','Viana')).
-\item utente(4,'Rui',21,morada('Rua 4','Braga')).
-\item utente(5,'Marega',27,morada('Rua 5','Porto')).
-\item utente(6,'Tiquinho',25,morada('Rua 6','Porto')).
-\item utente(7,'Brahimi',26,morada('Rua 7','Olival')).
-\item utente(8,'Aboubakar',26,morada('Rua 8','Olival')).
-\item utente(9,'Danilo',25,morada('Rua 9','Porto')).
-\item utente(10,'Herrera',25,morada('Rua 10','Porto')).
-\end{itemize}
-
-\subsection{Prestador}
-\textit{prestador: \#IdPrest, Nome, Especialidade, Instituição $\rightarrow$ \{V,F\}}
-\begin{itemize}
-\item prestador(1,'Nelon Puga','Desporto',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
-\item prestador(2,'Joaquim','Cardiologia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
-\item prestador(3,'Antonio','Fisioterapia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
-\item prestador(4,'Pedro','Radiologia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
-\item prestador(5,'Manuel','Oftalmogia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
-\item prestador(6,'Ines','Cardiologia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
-\item prestador(7,'Joana','Cirurgia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
-\item prestador(8,'Maria','Radiologia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
-\item prestador(9,'Diana','Oftalmogia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
-\item prestador(10,'Ana','Fisioterapia',instituicao('Hospital Braga', morada('Rua do Hospital','Braga'))).
-\item prestador(11,'Carlos','Cardiologia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
-\item prestador(12,'Tomas','Cirurgia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
-\item prestador(13,'Raquel','Radiologia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
-\item prestador(14,'Luisa','Oftalmogia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
-\item prestador(15,'Teresa','Fisioterapia',instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto'))).
-\end{itemize}
-
-\subsection{Utentes}
-\textit{cuidado: Data, \#IdUt, \#IdPrest, Descrição, Custo $\rightarrow$ \{V,F\}}
-\begin{itemize}
-\item cuidado(data(10,02,2018),1,9,'Consulta Rotina',30).
-\item cuidado(data(10,02,2018),2,9,'Consulta Rotina',30).
-\item cuidado(data(10,02,2018),3,9,'Consulta Rotina',30).
-\item cuidado(data(10,02,2018),4,9,'Consulta Rotina',30).
-\item cuidado(data(11,02,2018),5,9,'Consulta Rotina',30).
-\item cuidado(data(15,02,2018),5,1,'Consulta Pos-Match',10).
-\item cuidado(data(15,02,2018),6,1,'Consulta Pos-Match',10).
-\item cuidado(data(15,02,2018),7,1,'Consulta Pos-Match',10).
-\item cuidado(data(15,02,2018),8,1,'Consulta Pos-Match',10).
-\item cuidado(data(15,02,2018),9,1,'Consulta Pos-Match',10).
-\item cuidado(data(16,02,2018),5,11,'Eletrocardiograma',20).
-\item cuidado(data(16,02,2018),6,11,'Eletrocardiograma',20).
-\item cuidado(data(16,02,2018),7,11,'Eletrocardiograma',20).
-\item cuidado(data(17,02,2018),10,15,'Fisio - Coxa Direita',10).
-\item cuidado(data(17,02,2018),8,15,'Fisio - Gemeo Esq',10).
-\item cuidado(data(18,03,2018),10,13,'Raio X',50).
-\item cuidado(data(10,03,2018),5,1,'Consulta Pos-Match',10).
-\item cuidado(data(10,03,2018),7,1,'Consulta Pos-Match',10).
-\item cuidado(data(10,03,2018),8,1,'Consulta Pos-Match',10).
-\item cuidado(data(10,03,2018),9,1,'Consulta Pos-Match',10).
-\item cuidado(data(12,03,2018),6,15,'Fisio - Coxa Esq',10).
-\item cuidado(data(12,03,2018),7,15,'Fisio - Joelho Dir',10).
-\item cuidado(data(12,03,2018),8,15,'Fisio - Costas',10).
-\item cuidado(data(12,03,2018),9,15,'Fisio - Virilha',10).
-\item cuidado(data(12,03,2018),10,15,'Fisio - Coxa Dir',10).
-\item cuidado(data(20,02,2018),1,9,'Consulta',30).
-\item cuidado(data(20,02,2018),2,6,'Eletrocardiograma',25).
-\item cuidado(data(20,02,2018),3,7,'Intervenção',30).
-\item cuidado(data(20,02,2018),4,8,'Consulta Rotina',30).
-\item cuidado(data(20,02,2018),5,5,'Consulta Rotina',30).
-\end{itemize}
-
-\subsection{Instituição}
-\textit{instituicao: Nome,Morada -> {V,F}}
-\begin{itemize}
-\item instituicao('Clinica do Dragao', morada('Rua das Antas','Porto')).
-\item instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto')).
-\item instituicao('Hospital Braga', morada('Rua do Hospital','Braga')).
-\item instituicao('Centro Saude', morada('Rua Centro','Braga')).
-\item instituicao('Hospital Viana', morada('Rua do Hospital','Viana')).
-\item instituicao('Hospital Esposende', morada('Rua do Hospital', 'Esposende')).
-\end{itemize}
-
-\section{Funcionalidades}
-
-\subsection{Predicados Auxiliares}
-
-Estes predicados foram desenvolvidos para auxiliar na resolução dos predicados principais. Alguns deles fomos nós que desenvolvemos sendo que outros foram desenvolvidos nas aulas teóricas e nas teorico práticas.
-
+\titulo{Base de Conhecimento}
+\bigbreak
+\textbf{Utentes:}
 \begin{verbatim}
+utente: #IdUt, Nome, Idade, Morada -> {V,F}
+
+utente(1,'Tiago',23,morada('Rua 1','Esposende')).
+utente(2,'Cesario',21,morada('Rua 2','Valença')).
+utente(3,'Luis',22,morada('Rua 3','Viana')).
+utente(4,'Rui',21,morada('Rua 4','Braga')).
+\end{verbatim}
+
+\textbf{Prestadores:}
+\begin{verbatim}
+prestador: #IdPrest, Nome, Especialidade,Instituição -> {V,F}
+
+prestador(1,'Nelon Puga','Desporto',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
+prestador(2,'Joaquim','Cardiologia',instituicao('Clinica do Dragao', morada('Rua das Antas','Porto'))).
+\end{verbatim}
+
+\textbf{Cuidados Médicos:}
+\begin{verbatim}
+cuidado: Data, #IdUt, #IdPrest, Descrição, Custo -> {V,F}
+
+cuidado(data(10,02,2018),1,9,'Consulta Rotina',30).
+cuidado(data(10,02,2018),2,9,'Consulta Rotina',30).
+
+\end{verbatim}
+
+\textbf{Extra - Enuncidado}
+\bigbreak
+Além do enunciado proposto, decidimos considerear estes dois predicados extra, de forma a oferecer mais dinamismo e, principalmente, organização na nossa base de conhecimento de forma a que a seleção de informação fosse feita de uma forma mais rica e sistemática.
+\bigbreak
+\textbf{Instituições:}
+\begin{verbatim}
+instituição: Data, #IdUt, #IdPrest, Descrição, Custo -> {V,F}
+
+instituicao('Clinica do Dragao', morada('Rua das Antas','Porto')).
+instituicao('Hospital Sao Joao', morada('Rua da Circunvalacao','Porto')).
+\end{verbatim}
+
+\textbf{Moradas:}
+\begin{verbatim}
+morada: Rua,Localidade -> {V,F}
+
+\end{verbatim}
+
+\textbf{Datas:}
+\begin{verbatim}
+data: Dia, Mes, Ano -> {V,F}
+
 data(D, M, A) :- pertence(M, [1,3,5,7,8,10,12]), D >= 1, D =< 31.
 data(D, M, A) :- pertence(M, [4,6,9,11]), D >= 1, D =< 30.
 data(D, 2, A) :- A mod 4 =\= 0, D >= 1, D =< 28.
 data(D, 2, A) :- A mod 4 =:= 0, D >= 1, D =< 29.
 \end{verbatim}
-Este predicado é usado para validar datas, isto é, o dia (D), o mês (M) e o ano (A).
+
+
+\chapter{Desenvolvimento} \label{intro}
+ 
+
+Neste capitulo será explicado os predicados utilizados na resolução dos requisitos propostos. Apresentar-se-à também o código usado na representação dos predicados fundamentais, e ainda uma breve explicação acerca dos predicados auxiliares utilizados.
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Registar utentes, prestadores e cuidados médicos.}
+
+Registo na base de conhecimento os predicados utentes, prestadores e cuidados médicos. 
+
+\subsection{Predicado Principal}
+ 
+\begin{verbatim}
+resgistar T -> {V,F}
+\end{verbatim}
+ 
+O registo de utentes,prestadores e cuidados prestados é efetuado a partir do predicado registar. 
+ 
 
 \begin{verbatim}
+registar( Termo ) :-
+    solucoes( Invariante,+Termo::Invariante,Lista), 
+                insercao(Termo), 
+                    teste(Lista).
+\end{verbatim}
+ 
+Este predicado tem em conta os invariantes criados, de modo a evitar a inserção de conhecimento repetido, e de modo a manter a consistência da nossa base de conhecimento. Os invariantes utilizados para o efeito são os seguintes:    
+
+\subsection{Invariantes}
+
+\begin{verbatim}
++utente(ID,N,I,M) :: 
+        (solucoes( (ID), 
+            (utente(ID,Ns,Is,Ms)),S), 
+                comprimento(S,N), N==1).
+\end{verbatim}
+Este invariante está definido de forma a não permitir informação repetida de utentes na nossa base de conhecimento. Pode estar repetido através do ID, ou seja, cada utente tem um ID único.
+\bigbreak
+
+\begin{verbatim}
++prestador(ID,N,E,I) :: 
+        (solucoes( (ID), 
+            (prestador(ID,Ns,Es,Is)), S),
+                comprimento(S,N),N==1).
+\end{verbatim}
+Este invariante está definido de forma a não permitir informação repetida de prestadores na nossa base de conhecimento. Pode estar repetido através do ID, ou seja, cada prestador tem um ID único.
+\bigbreak
+
+\begin{verbatim}
++cuidado(Dt,IDU,IDP,D,C) :: 
+        (solucoes( (Dt,IDU,IDP),
+            (cuidado(Dt,IDU,IDP,Ds,Cs)),S),
+                comprimento(S,N),N==1).
+\end{verbatim}
+Este invariante está definido de forma a não permitir informação repetida de cuidados de saude na nossa base de conhecimento. Pode estar repetido através da data, do IDU e do IDP em simultâneo, ou seja, cada cuidado de saude tem um trio data, IDU e IDP único.
+\bigbreak
+
+\begin{verbatim}
++cuidado(Dt,IDU,IDP,D,C) :: 
+        (solucoes( (IDU),
+            (utente(IDU,Ns,Is,Ms)),S),
+                comprimento(S,N),N==0).
+
++cuidado(Dt,IDU,IDP,D,C) :: 
+        (solucoes( (IDP),
+            (prestador(IDP,Ns,Es,Is)),S),
+                comprimento(S,N),N==0).
+\end{verbatim}
+Estes dois invariantes protegem a nossa base de conhecimento, de maneira a não ser inserido conhecimento por falta de conhecimento, ou seja, nao é possivel adicionar um cuidado de saude com um determinado IDU ou IDP caso estes nao constem no predicado utente ou prestador, respetivamente.
+\bigbreak
+
+\begin{verbatim}
++instituicao(N,M) :: 
+    (solucoes( (N), 
+        instituicao(N,M) ,S), 
+            N==1).
+\end{verbatim}
+Este invariante está definido de forma a não permitir informação repetida de instituições na nossa base de conhecimento. Pode estar repetido através do nome, ou seja, cada instituição tem um nome único.
+\bigbreak
+
+\subsection{Predicados Auxiliares}
+
+Nesta secção apresentamos os predicados auxiliares usados no predicado registar.
+
+
+\begin{verbatim}
+solucoes T,Q,S -> {V,F}
+\end{verbatim}
+
+Predicado que guarda numa lista as soluções da questão efetuada,com o formato especificado.
+
+\begin{verbatim}
+insercao T -> {V,F}
+
 insercao(T) :- assert(T).
 insercao(T) :- retract(T),!,fail.
 \end{verbatim}
-Este predicado insere o conhecimento na base de conhecimento em caso de sucesso, no entanto, em caso de insucesso remove o conhecimento inserido.
+
+Este predicado trata de inserir na base de conhecimento em caso de sucesso, senão remove o conhecimento inserido em caso de insucesso.
 
 \begin{verbatim}
-remocao(T) :- retract(T).
-remocao(T) :- assert(T),!,fail.
-\end{verbatim}
-Este predicado remove o conhecimento da nossa base de conhecimento.
+teste L -> {V,F}
 
-\begin{verbatim}
 teste([]).
 teste([I|L]) :- I, teste(L).
 \end{verbatim}
-Este predicado testa se existe algum invariante que não seja satisfeito. Se falhar algum invariante, então a base de conhecimento não vai evoluir, caso todos forem satisfeitos, a base de conhecimento vai evoluir.
+
+Testa se existe algum invariante que não seja satisfeito, se falhar em algum dos invariantes , a inserção falha e assim não ocorre evolução da nossa base de conhecimento. Se todos os invariantes forem satisfeitos, a nossa base de conhecimento é evoluída com sucesso.
 
 \begin{verbatim}
+comprimento Lista, R -> {V,F}
+
 comprimento([],0).
 comprimento([X|L],R) :- comprimento(L,N) , R is 1+N.
 \end{verbatim}
-Este predicado calcula o comprimento de uma lista.
+Este predicado calcula o numero de elementos de uma lista.
+\bigbreak
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Remover utentes, prestadores e cuidados médicos.}
+
+Remover na base de conhecimento os predicados utentes, prestadores e cuidados médicos. 
+
+\subsection{Predicado Principal}
+ 
+\begin{verbatim}
+remover T -> {V,F}
+\end{verbatim}
+ 
+A remoção de utentes,prestadores e cuidados prestados é efetuado a partir do predicado remover. 
+ 
+
+\begin{verbatim}
+remover( Termo ) :-
+    solucoes( Invariante,+Termo::Invariante,Lista), 
+                remocao(Termo), 
+                    teste(Lista).
+\end{verbatim}
+
+Este predicado tem em conta os invariantes criados, de modo a evitar a remoção de conhecimento critico, e de modo a manter a consistência da nossa base de conhecimento. Os invariantes utilizados para o efeito são os seguintes:    
+
+\subsection{Invariantes}
+
+\begin{verbatim}
+-utente(ID,N,I,M) :: 
+    (solucoes( (ID), 
+        (cuidado(Dts,ID,IDPs,Ds,Cs)) , S),
+            comprimento(S,N),N>0).
+\end{verbatim}
+Este invariante está definido de forma a não permitir remoção de utentes, quando estes pertencem ao predicado do conhecimento de cuidados medicos.
+\bigbreak
+
+\begin{verbatim}
+-prestador(ID,N,E,I) :: 
+    (solucoes( (ID), 
+        (cuidado(Dts,IDUs,ID,Ds,Cs)), S),
+            comprimento(S,N),N==0).
+\end{verbatim}
+Este invariante está definido de forma a não permitir remoção de prestadores, quando estes pertencem ao predicado do conhecimento de cuidados medicos.
+\bigbreak
+
+\begin{verbatim}
+-cuidado(Dt,IDU,IDP,D,C) :: 
+    (solucoes( (Dt,IDU,IDP,D,C), 
+        (cuidado(Dt,IDU,IDP,D,C)) ,S),
+            comprimento(S,N), N==0).
+\end{verbatim}
+Este invariante está definido de forma a não permitir remoção de cuidados, quando estes nao existem na base de conhecimento.
+\bigbreak
+
+\begin{verbatim}
+-instituicao(N,M) :: 
+    (solucoes( (N,M), 
+        prestador(_,_,_,(N,M)) , S), 
+            comprimento(S,N),N==0).
+\end{verbatim} 
+Este invariante está definido de forma a não permitir remoção de instituições, quando estes pertecem ao predicado do conhecimento de prestadores.
+\bigbreak
+
+ 
+\subsection{Predicados Auxiliares}
+
+Nesta secção apresentamos os novos predicados auxiliares usados no predicado remover.
+
+\begin{verbatim}
+remocao T -> {V,F}
+
+remocao(T) :- retract(T).
+remocao(T) :- assert(T),!,fail.
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Identificar utentes por critérios de seleção}
+
+Na terceiro requisito do exercício é pedido que seja possível identificar os utentes pelos seus critérios de seleção, ou seja, pelo seu \textbf{ID}, \textbf{nome}, a sua \textbf{idade} ou \textbf{morada}. Através do predicado \textit{soluções} a resposta bastante simples de concretizar.
+
+\begin{verbatim}
+ponto_tres : Critério,R -> {V,F}
+\end{verbatim}
+
+A conclusão deste predicado é instruida com critério pelo qual vai ser feita a seleção dos utentes, e uma lista aonde se irá colocar o resultado dessa mesma seleção.
+
+\begin{verbatim}
+ponto_tres(ids,R) :- 
+    solucoes((ID),utente(ID,Ns,Is,Ms),R).
+
+ponto_tres(nomes,R) :- 
+    solucoes((N),utente(IDs,N,Is,Ms),R).
+
+ponto_tres(idades,R) :- 
+    solucoes((I),utente(IDs,Ns,I,Ms),R).
+
+ponto_tres(moradas,R) :- 
+    solucoes((M),utente(IDs,Ns,Is,M),R).
+\end{verbatim}
+
+Irá colocar todos os \textbf{ID's}, \textbf{nomes}, \textbf{idades} ou \textbf{moradas} presentes nos \textit{utentes} em R.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Identificar as instituições prestadoras de cuidados de saúde}
+
+Identificar as instituições prestadoras de serviços de saude que ja tenham ou nao prestado cuidados de saude, permitindo fornecer ao utilizador uma noção das instituições a que pode recorrer.
+
+
+\begin{verbatim}
+ponto_quatro : Critério,R -> {V,F}
+\end{verbatim}
+
+Neste predicado os critérios instruidos na conclusão especificam se queremos todas as instituições presentes na base de conhecimento, ou apenas aquelas que ja forneceram cuidados de saude.
+
+\begin{verbatim}
+ponto_quatro(todas,R) :- 
+    solucoes( (N) , 
+        instituicao(N,M), R).
+
+ponto_quatro(cuidados,R) :- 
+    solucoes( (N), 
+        (cuidado(_,_,IDP,_,_),prestador(IDP,_,_,instituicao(N,_)))S),
+            unicos(S,R).
+\end{verbatim}
+
+No primeiro caso, é uma pesquisa simples com o auxilio do predicado \textit{soluções} colocando em \textbf{R}, a lista com o \textbf{nome} de todas as instituições presentes na nossa base de conhecimento. Achamos suficiente caracterizar as instituições apenas com o nome visto que ja fornece ao utilizador um nivel pormenorizado de informação.
+No segundo caso, a pesquisa do predicado \textit{soluções} é mais complexa. Neste caso é feita uma compatibilidade interna de todos os cuidados de saude e todos os prestadores que contenham o mesmo \textbf{IDP}. A todos os casos que obedeçam a este critério, o nome da institução dos prestadores é guardado numa lista auxiliar, sendo posteriormente essa lista filtrada através do predicado \textit{unicos} (predicado que será definido mais à frente), colocando assim o resultado final sem repetições no argumento \textbf{R}. 
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Identificar cuidados de saúde prestados por instituição/cidade/datas}
+
+Este ponto do enunciado do enunciado têm como função filtrar os cuidados de saúde dado uma instituição, uma cidade ou uma data.
+
+\begin{verbatim}
+ponto_cinco : Critério,X,R -> {V,F}
+\end{verbatim}
+
+No predicado acima indicado têm como critérios possíveis uma \textit{instituicao}, uma \textit{cidade} ou uma \textit{data}, sendo X, respetivamente, o \textbf{nome}, a \textbf{localidade}, ou a \textbf{data}.
+
+\begin{verbatim}
+ponto_cinco(inst,X,R) :- 
+    solucoes( (Dt,IDU,IDP,D,C) , 
+        (prestador(IDP,_,_,instituicao(X,_)) , cuidado(Dt,IDU,IDP,D,C) ), R).
+
+
+
+ponto_cinco(cidade,X,R) :- 
+    solucoes( (Dt,IDU,IDP,D,C) , 
+        (prestador(IDP,_,_,instituicao(_,morada(_,X))) , cuidado(Dt,IDU,IDP,D,C) ), R).
+
+% *** outra_versao -> que nao faz tanto sentido ***
+
+% ponto_cinco(cidade,X,R) :- 
+    solucoes( (Dt,IDU,IDP,D,C) , 
+        (utente(IDU,_,_,morada(_,X)) , cuidado(Dt,IDU,IDP,D,C) ), R).
+
+
+
+ponto_cinco(data,X,R) :- 
+    solucoes( (X,IDU,IDP,D,C) , 
+        cuidado(X,IDU,IDP,D,C) , R).
+\end{verbatim}
+
+Como é possível observar, o seu funcionamento é semelhante ao predicado anterior. No primeiro argumento do predicado soluções colocamos o que prentiamos que fosse o nosso resultado e no segundo argumento fizemos as compatibilidades necessárias para obter a lista com os resultados. Neste caso, decidimos que os argumentos minimos para oferecer ao utilizador informação suficiente sobre os cuidados de saude seriam todos os argumentos que definem o predicado \textit{cuidado}. A lista com o resultado obtido é colocada no argumento \textbf{R} da conclusão.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Identificar os utentes de um prestador/especialidade/instituição}
+
+Este ponto tem como função executar a filtragem de todos os utentes que tenham efetuado cuidados de saude com um prestador, numa especialidade ou numa instituição.
+
+\begin{verbatim}
+ponto_seis : Critério,X,R -> {V,F}
+\end{verbatim}
+
+A conclusão deste predicado, tem como critérios possiveis, o \textit{prest}, a \textit{esp} e a \textit{inst}, que correspondem, respetivamente, ao \textbf{ID} do prestador, ao \textbf{nome} da especialidade e ao \textbf{nome} da instituição. Decidimos instruir a conclusão com o \textit{ID} do prestador e o nome da instituição, pois são os identificadores unicos dos prestadores e das instituições na nossa base de conhecimento, ou seja, nao existe dois prestadores com o mesmo \textit{id}, nem duas instituições com o mesmo nome.
+
+\begin{verbatim}
+ponto_seis(prest,X,R) :- 
+    solucoes( (IDU,N), 
+        ( cuidado(_,IDU,X,_,_),utente(IDU,N,_,_)), S), 
+            unicos(S,R).
+
+
+
+ponto_seis(esp,X,R) :- 
+    solucoes( (IDU,N), 
+        ( prestador(IDP,_,X,_), cuidado(_,IDU,IDP,_,_), utente(IDU,N,_,_)), S), 
+            unicos(S,R).
+
+
+
+ponto_seis(inst,X,R) :- 
+    solucoes( (IDU,N), 
+        ( cuidado(_,IDU,_,_,instituicao(X,_)), utente(IDU,N,_,_)), S),
+            unicos(S,R).
+\end{verbatim}
+
+Na resposta a este ponto, que é colocada no argumento \textbf{R}, decidimos que cada utente ia ser caracterizado pelo seu \textbf{nome} e \textbf{ID}. Apesar do ID ser o identificador unico dos utentes na nossa base de conhecimento, achamos que fornecer apenas essa informação ao utilizador podia ser curto, portanto acrescentamos o nome de cada utente ao seu identificador.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Identificar cuidados de saúde realizados por utente/instituição/prestador}
+
+Este ponto, tem como objetivo listar todos os cuidados de saúde que tenham sido realizados por um utente, uma instituição ou por um prestador.
+
+\begin{verbatim}
+ponto_sete : Criterio,X,R -> {V,F}
+\end{verbatim}
+
+A conclusão deste predicado, tem como critérios possiveis o \textit{utente}, a \textit{inst} ou o \textit{prest}, que correspondem, respetivamente, ao \textbf{ID} do utente, \textbf{nome} da instituição ou ao \textbf{ID} do prestador. Como foi dito anteriormente, tanto o id do utente, o id do prestador, e o nome da instituição, são respetivamente, os identificadores unicos dos seus predicados, não existindo estes identificadores repetidos na nossa base de conhecimento, é portanto, os argumentos necessários para instruir a conclusão deste predicado.
+
+\begin{verbatim}
+ponto_sete(utente,X,R) :- 
+    solucoes( (Dt,X,IDP,D,C), 
+        cuidado(Dt,X,IDP,D,C), R).
+
+
+
+ponto_sete(inst,X,R) :- 
+    solucoes( (Dt,IDU,IDP,D,C), 
+        ( prestador(IDP,_,_,instituicao(X,_)), cuidado(Dt,IDU,IDP,D,C)),R).
+
+
+
+ponto_sete(prest,X,R) :- 
+    solucoes( (Dt,IDU,X,D,C), 
+        cuidado(Dt,IDU,X,D,C), R).
+\end{verbatim}
+
+Uma vez mais, o funcionamento do predicado soluções é igual aos descritos em cima, e o resultado colocado em \textbf{R} é a lista de todos os cuidados pretendidos, sendo que cada cuidado é definido por todos os seus argumentos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Determinar todas as instituições/prestadores a que um utente já recorreu}
+
+Este ponto tem como objetivo filtrar todas as instituições ou prestadores que ja tenham prestado cuidados de saude a um utente.
+
+
+\begin{verbatim}
+custoTotal : Critério,Utente,R -> {V,F}
+\end{verbatim}
+
+A conclusão deste predicado tem como critérios possiveis o \textit{inst}, caso o utilizador pretenda listar as instituições ou o \textit{prest}, caso pretenda listar os prestadores. O argumento \textbf{U} é o identificador único de um utente da nossa base de conhecimento, ou seja o seu \textbf{IDU}. 
+
+
+\begin{verbatim}
+ponto_oito(inst,U,R) :- 
+    solucoes( (N) , 
+        ( cuidado(_,U,IDP,_,_), prestador(IDP,_,_,instituicao(N,_))) ,S) , 
+            unicos(S,R).
+
+
+ponto_oito(prest,U,R) :- 
+    solucoes( (ID,N) , 
+        ( cuidado(_,U,IDP,_,_), prestador(IDP,N,_,_) ,S)) ,
+             unicos(S,R).
+\end{verbatim}
+
+No argumento \textbf{R}, é colocada a lista pretendida sendo que cada instituição é definida pelo seu \textbf{nome}, e os prestadores são definidos pelo seu \textbf{ID} e pelo seu \textbf{nome}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Calcular o custo total dos cuidados de saúde por utente/especialidade/prestador/datas}
+
+Neste ponto, é pretendido que seja feito a soma total dos custos de todos os cuidados de saude efetuados por um utente, uma especialidade, um prestador, ou numa determinada data.
+
+\begin{verbatim}
+ponto_nove : Critério,Valor,R -> {V,F}
+\end{verbatim}
+
+A conslusão deste predicado tem como critérios o \textit{utente}, a \textit{esp}, o \textit{prest} e a \textit{data}. O argumento \textbf{X} é instruido com os respetivos identificadores unicos de cada predicado.
+
+
+\begin{verbatim}
+ponto_nove(utente,X,R) :- 
+    solucoes( (C), 
+        cuidado(Dt,X,IDP,D,C), S), 
+            somaTotal(S,R).
+
+
+
+ponto_nove(esp,X,R) :- 
+    solucoes( (C), 
+        (prestador(IDP,_,X,_), cuidado(_,_,IDP,_,C)) , S), 
+            somaTotal(S,R).
+
+
+
+ponto_nove(prest,X,R) :- 
+    solucoes( (C), 
+        cuidado(Dt,IDU,X,D,C), S), 
+            somaTotal(S,R). 
+
+
+
+ponto_nove(data,X,R) :- 
+    solucoes( (C), 
+        cuidado(X,IDU,IDP,D,C), S), 
+            somaTotal(S,R).
+
+
+\end{verbatim}
+
+Após ser executada a filtragem através do predicado soluções a lista \textbf{S}, que no momento é uma lista de valores de custos, é fornecida ao prediado \textbf{somaTotal}, que calcula a soma de todos os valores e coloca esse resultado no argumento \textbf{R}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\titulo{Predicados Gerais}
+
+\subsection{Predicado: nao}
+
+Este predicado serve para negar o valor de verdade de uma questão.
+
+\begin{verbatim}
+nao: Questão -> {V,F}
+\end{verbatim}
+
+\begin{verbatim}
+nao(Q) :- Q, !, fail.
+nao(Q).
+\end{verbatim}
+
+
+
+
+
+
+\subsection{Predicado: pertence}
+
+Este predicado foi definido para saber se um dado valor faz parte de uma lista.
+
+\begin{verbatim}
+pertence: Valor, Lista -> {V,F}
+\end{verbatim}
+
+\begin{verbatim}
+pertence(H,[H|T]).
+pertence(X,[H|T]) :-
+    X \= H,
+    pertence(X,T).
+
+\end{verbatim}
+
+
+
+
+
+\subsection{Predicado: unicos}
+
+Este predicado foi definido com o obetivo de filtrar valores repetidos numa lista. É utilizado em quase todos os pontos do enunciado.
+
+\begin{verbatim}
+unicos: Lista, R -> {V,F}
+\end{verbatim}
 
 \begin{verbatim}
 unicos([],[]).
@@ -164,389 +796,46 @@ unicos([H|T], [H|R]) :-
     nao(pertence(H,T)),
     unicos(T,R).
 \end{verbatim}
-Este predicado verifica se os elementos que compõem uma lista são todos diferentes.
+
+
+
+
+
+
+\subsection{Predicado: somaTotal}
+
+Este predicado foi definido com o objetivo de calcular a soma de todos os valores de uma lista. É utilizado no predicado do ponto nove.
 
 \begin{verbatim}
-nao(Q) :- Q, !, fail.
-nao(Q).
+somaTotal: Lista,Resultado -> {V,F}
 \end{verbatim}
-Este predicado verifica se um conhecimento existe na nossa base de conhecimento.
 
 \begin{verbatim}
-pertence(H,[H|T]).
-pertence(X,[H|T]) :-
-    X \= H,
-    pertence(X,T).
-\end{verbatim}
-Este predicado verifica se elemento pertence a uma lista.
-
-\begin{verbatim}
-somaTotal([],0).
-somaTotal([X],X).
-somaTotal([X|L],R) :- somaTotal( L,R1 ), R is X+R1.
-\end{verbatim}
-Este predicado soma todos os elementos de uma lista.
-
-\begin{verbatim}
-solucoes(T,Q,S) :- findall(T,Q,S).
-\end{verbatim}
-Este predicado utiliza o predicado findall disponibilizado pelo PROLOG, de modo a colocar numa lista as solucões a
-questão efetuada.
-
-\subsection{Registar utentes, prestadores e cuidados de saúde}
-Neste ponto pretende-se registar utentes, prestadores e cuidados de saúde, tendo em conta certos casos onde a inserção será inválida.
-\par
-
-\subsubsection{Invariantes}
-\begin{verbatim}
-+utente(ID,N,I,M) :: 
-    (solucoes( (ID), (utente(ID,Ns,Is,Ms)),S),
-    comprimento(S,N), 
-    N==1).
+somaTotal( [],0 ).
+somaTotal( [X],X ).
+somaTotal( [X|L],R ) :- somaTotal( L,R1 ), R is X+R1.
 \end{verbatim}
 
-Invariante Estrutural: não permitir a inserção de conhecimento repetido de utentes. Pode estar repetido de duas formas:
-\begin{arrowlist}
-\item ID
-\item Nome
-\end{arrowlist}
 
-\begin{verbatim}
-+prestador(ID,N,E,I) :: 
-    (solucoes( (ID), (prestador(ID,Ns,Es,Is)), S),
-    comprimento(S,N),
-    N==1).
-\end{verbatim}
 
-Invariante Estrutural: não permitir a inserção de conhecimento repetido de prestadores. Pode estar repetido de duas formas:
-\begin{arrowlist}
-\item ID
-\item Nome
-\end{arrowlist}
 
-\begin{verbatim}
-+cuidado(Dt,IDU,IDP,D,C) :: 
-    (solucoes( (Dt,IDU,IDP),(cuidado(Dt,IDU,IDP,Ds,Cs)),S),
-    comprimento(S,N),
-    N==1).
-\end{verbatim}
 
-Invariante Estrutural: não permitir a inserção de conhecimento repetido de cuidados. Pode estar repetido, quando se verifica em simultâneo igualdades na:
-\begin{arrowlist}
-\item Data
-\item Id utente
-\item Id prestador
-\end{arrowlist}
 
-\begin{verbatim}
-+cuidado(Dt,IDU,IDP,D,C) :: 
-    (solucoes( (IDU),(utente(IDU,Ns,Is,Ms)),S),
-    comprimento(S,N),
-    N==0).
-+cuidado(Dt,IDU,IDP,D,C) :: 
-    (solucoes( (IDP),(prestador(IDP,Ns,Es,Is)),S),
-    comprimento(S,N),
-    N==0).
-\end{verbatim}
 
-Invariante Referencial: não permitir a inserção de conhecimento, por falta de conhecimento de cuidados. Não se insere o conhecimento quando não há conhecimento de:
-\begin{arrowlist}
-\item Utente
-\item Prestador
-\end{arrowlist}
 
-\begin{verbatim}
-+instituicao(N,M) :: 
-    (solucoes( (N),instituicao(N,M) ,S),
-    N==1).
-\end{verbatim}
 
-Invariante Estrutural: não permitir a inserção de conhecimento repetido de instituições. Pode estar repetido de duas formas:
-\begin{arrowlist}
-\item Pelo Nome da instituição.
-\end{arrowlist}
 
-\begin{verbatim}
--instituicao(N,M) :: 
-    (solucoes( (N,M),prestador(\_,\_,\_,(N,M)) , S), 
-    N==0).
-\end{verbatim}
 
-Invariante Estrutural: não permitir a remoção de conhecimento. Não se pode remover conhecimento de prestador quando:
-\begin{arrowlist}
-\item Há conhecimento de instituicao nos prestadores.
-\end{arrowlist}
 
-\subsubsection{Predicado Principal}
-
-\begin{verbatim}
-registar( Termo ) :-
-    solucoes( Invariante,+Termo::Invariante,Lista), 
-    insercao(Termo), 
-    teste(Lista).
-\end{verbatim}
-
-Este predicado é responsável por registar utentes, prestadores e cuidados de saúde, tendo em consideração os invariantes que já foram mensionados e usando os predicados auxiliares. Este predicado é igual ao predicado evolução que foi desenvolvido na aula teórica.
-
-\subsection{ Remover utentes, prestadores e cuidados de saúde}
-Neste ponto pretende-se remover utentes, prestadores e cuidados de saúde, tendo em conta certos casos onde a remoção será inválida.
-\par
-
-\subsubsection{Invariantes}
-
-\begin{verbatim}
--utente(ID,N,I,M) :: 
-    (solucoes( (ID), (cuidado(Dts,ID,IDPs,Ds,Cs)) , S),
-    comprimento(S,N),
-    N>0).
-\end{verbatim}
-
-Invariante Estrutural: não permitir a remoção de conhecimento de utentes. Não se pode remover conhecimento de utente quando:
-\begin{arrowlist}
-\item Há conhecimento de utente nos cuidados.
-\end{arrowlist}
-
-\begin{verbatim}
--prestador(ID,N,E,I) :: 
-    (solucoes( (ID), (cuidado(Dts,IDUs,ID,Ds,Cs)), S),
-    comprimento(S,N),
-    N==0).
-\end{verbatim}
-
-Invariante Estrutural: não permitir a remoção de conhecimento de prestadores. Não se pode remover conhecimento de prestador quando:
-\begin{arrowlist}
-\item Há conhecimento de prestador nos cuidados.
-\end{arrowlist}
-
-\begin{verbatim}
--cuidado(Dt,IDU,IDP,D,C) :: 
-    (solucoes( (Dt,IDU,IDP,D,C), (cuidado(Dt,IDU,IDP,D,C)) ,S),
-    comprimento(S,N), 
-    N==0).
-\end{verbatim}
-Invariante Estrutural:  não permitir a remoção de conhecimento de cuidados. Não se pode remover conhecimento de cuidado quando:
-\begin{arrowlist}
-\item Não há esse conhecimento de cuidado
-\end{arrowlist}
-
-\subsubsection{Predicado Principal}
-
-\begin{verbatim}
-remover( Termo ) :-
-    solucoes( Invariante,+Termo::Invariante,Lista), 
-    remocao(Termo), 
-    teste(Lista).
-\end{verbatim}
-
-Este predicado é responsável por remover utentes, prestadores e cuidados de saúde, tendo em consideração os invariantes que já foram mencionados e usando predicados auxiliares. Este predicado é igual ao predicado involução que foi referenciado na aula teórica.
-
-\subsection{Identificar utentes por critérios de seleção}
-
-\subsubsection{Predicado Principal}
-Este predicado vai identificar utentes através de vários critérios de seleção como o seu ID, nome, idade ou morada.
-
-\begin{verbatim}
-ponto_tres(ids,R) :- solucoes((ID),utente(ID,Ns,Is,Ms),R).
-ponto_tres(nomes,R) :- solucoes((N),utente(IDs,N,Is,Ms),R).
-ponto_tres(idades,R) :- solucoes((I),utente(IDs,Ns,I,Ms),R).
-ponto_tres(moradas,R) :- solucoes((M),utente(IDs,Ns,Is,M),R).
-\end{verbatim}
-
-\subsubsection{Conclusão do predicado} 
-\begin{enumerate}
-\item Lista com ids dos utentes;
-\item Lista com nomes dos utentes;
-\item Lista com idades dos utentes;
-\item Lista com maradas dos utentes
-\end{enumerate}
-
-\subsubsection{Extensão do predicado}
-No predicado solucoes, no segundo argumento, queremos encontrar todas as ocorrencias que tenham um argumento igual ao do primeiro argumento, neste caso o (ID)/(N)/(I)/(M) e colocamos todas as ocorrencias que correspondem a esta comparação no terceiro argumento do predicado soluçoes.
-
-\subsection{Identificar as instituições prestadoras de cuidados de saúde}
-
-\subsubsection{Predicado Principal}
-Este predicado identica as instituicões que prestam cuidados de saúde.
-
-\begin{verbatim}
-ponto_quatro(todas,R) :- 
-    solucoes((N), instituicao(N,M), R).
-ponto_quatro(cuidados,R) :- 
-    solucoes((N), (cuidado(_,_,IDP,_,_),prestador(IDP,_,_,instituicao(N,M))) , S),
-    unicos(S,R).
-\end{verbatim}
-
-\subsubsection{Conclusão do predicado} 
-\begin{enumerate}
-\item Lista com o NOME de todas as instituiçoes que estao na nossa base de conhecimento, pq na nossa base de conhecimento o que define uma instituição achamos que devia ser o nome.
-\item Lista com o NOME de todas as instuiçoes que estao referenciadas em predicados de cuidados, pq na nossa base de conhecimento o que define uma instituição achamos que devia ser o nome.
-\end{enumerate}
-
-\subsubsection{Extensão do predicado}
-\begin{enumerate}
-\item No predicado solucoes, no segundo argumento, queremos encontrar todas as ocorrencias que tenham um argumento igual ao do primeiro argumento, neste caso o (N) e colocamos todas as ocorrencias que correspondem a esta comparação no terceiro argumento do predicado soluçoes.
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de cuidados e vamos so guardar o seu 'IDP', e fazemos uma comparação com todas as ocorrências de prestadores cujo o IDP seja o mesmo. Por fim guardamos o Nome(N) da instituição (pois, foi o que dissemos que queriamos guardar, a partir do primeiro argumento) numa lista auxiliar. Em seguida passamos essa lista pelo predicado 'unicos' para 'limpar' o resultado e só mostrar uma vez o nome de cada instituição.
-\end{enumerate}
-
-\subsection{Identificar cuidados de saúde prestados por instituição/cidade/datas}
-
-\subsubsection{Predicado Principal}
-Este predicado identifica os cuidados prestados por uma dada instituição,cidade ou data.
-
-\begin{verbatim}
-ponto_cinco(inst,X,R) :- 
-    solucoes((Dt,IDU,IDP,D,C), (prestador(IDP,_,_,instituicao(X,_)), cuidado(Dt,IDU,IDP,D,C)), S),
-    unicos(S,R).
-ponto_cinco(cidade,X,R) :- 
-    solucoes( (Dt,IDU,IDP,D,C) , (prestador(IDP,_,_,instituicao(_,morada(_,X))) , cuidado(Dt,IDU,IDP,D,C)), S), 
-    unicos(S,R).
-ponto_cinco(data,X,R) :- solucoes( (X,IDU,IDP,D,C) , cuidado(X,IDU,IDP,D,C) , R).
-\end{verbatim}
-
-\subsubsection{Conclusão do predicado} 
-\begin{enumerate}
-\item Lista com todos os cuidados de saúde que tenham sido feitos na instituição que é fornecida á conclusão.
-\item Lista com todos os cuidados de saúde que tenham sido feitos na cidade que é fornecida á conclusão.
-\item Lista com todos os cuidados de saúde que tenham sido feitos na data que é fornecida á conclusão.
-\end{enumerate}
-
-Decidimos que a resposta apresentada, ou seja, a lista com todos os cuidados, estes iam ser definidos pela data, o IDU, o IDP, a descrição e o custo, ou seja todos os seus argumentos, definimos portanto que para definir um cuidado de saúde, este so é definido por todos os seus argumentos.
-
-\subsubsection{Extensão do predicado}
-\begin{enumerate}
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de prestadores cujo nome da instituição seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os cuidados que contenham um IDP igual ao referido. Por fim, como no primeiro argumento definimos que queriamos todos os argumentos dos cuidados, estes sao guardados no resultado
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de prestadores cuja cidade da morada da instituição seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os cuidados que contenham um IDP igual ao referido. Por fim, como no primeiro argumento definimos que queriamos todos os argumentos dos cuidados, estes sao guardados no resultado
-\item No predicado solucoes, no segundo argumento, queremos encontrar todas as ocorrencias que tenham um argumento igual ao do primeiro argumento, neste caso a dat e colocamos todas as ocorrencias que correspondem a esta comparação no terceiro argumento do predicado soluçoes.
-\end{enumerate}
-
-\subsection{Identificar os utentes de um prestador/especialidade/instituição}
-
-\subsubsection{Predicado Principal}
-Este predicado identifica os utentes dada um prestador, especialidade ou instituição, onde X que representa o que queremos procurar e R é onde é guardado o resultado final.
-
-\begin{verbatim}
-ponto_seis(prest,X,R) :- 
-    solucoes( (IDU,N), ( cuidado(Dt,IDU,X,D,C),utente(IDU,N,_,_)), S), 
-    unicos(S,R).
-ponto_seis(esp,X,R) :- 
-    solucoes( (IDU,N), ( prestador(IDP,_,X,_), cuidado(_,IDU,IDP,_,_), utente(IDU,N,_,_)), S), 
-    unicos(S,R).  
-ponto_seis(inst,X,R) :- 
-    solucoes( (IDU,N), ( cuidado(_,IDU,_,_,instituicao(X,_)), utente(IDU,N,_,_)), S),
-    unicos(S,R).
-\end{verbatim}
-
-\subsubsection{Conclusão do predicado} 
-\begin{enumerate}
-\item Lista com todos os utentes que tenham tido cuidados de saúde com o prestador cujo ID é fornecido na conclusão, pois na nossa base de conhecimento os ids sao unicos, logo nao existe dois prestadores com o mesmo id, enquanto que pode haver prestadores com o mesmo nome.
-\item Lista com todos os utentes que tenham tido cuidados de saúde na especialidde que é fornecida á conclusão.
-\item Lista com todos os utentes que tenham tido cuidados de saúde na instiuiçao cujo nome é fornecido à conclusão, pq como dissemos anteriormente o maior ponto que define uma instituição é o nome.
-\end{enumerate}
-
-Decidimos que na resposta apresentada, ou seja, a lista com todos os utentes, os utentes iam ser definidos pelos dois pontos cruciais que os definiem, ou seja, cada utente é definido pelo seu id e pelo seu nome, visto que nao há ids repetidos na nossa base de conhecimento enquanto que nome pode haver, e para definir um utente so pelo id pareceu-nos pouca informação.
-
-\subsubsection{Extensão do predicado}
-\begin{enumerate}
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrências de cuidados cujo id do prestador seja igual ao colocado na conclusão, 'guardamos' o IDU de todas as ocorrências que obedeçam a este critério para fazer um match com todos os utentes da nossa base de conhecimento  que contenham um IDU igual ao referido. Por fim, como no primeiro argumento definimos que queriamos o IDU e o Nome dos utentes, estes sao guardados numa lista auxiliar, para depois serem passados no predicado unicos
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de prestadores cuja especialidade seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os cuidados que contenham um IDP igual ao referido. A seguir 'guardamos' o IDU de todos os cuidados que fizeram o match referido para voltar a fazer um match com as ocorrencias de todos os utentos. Por fim, como no primeiro argumento definimos que queriamos o IDU e o Nome dos utentes, estes sao guardados numa lista auxiliar, para depois serem passados no predicado únicos.
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de cuidados cujo nome da instituiçãoseja igual ao colocado na conclusão, 'guardamos' o IDU de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os utentes que contenham um IDU igual ao referido. Por fim, como no primeiro argumento definimos que queriamos o IDU e o Nome dos utentes, estes sao guardados numa lista auxiliar, para depois serem passados no predicado únicos.
-\end{enumerate}
-
-\subsection{Identificar cuidados de saúde realizados por utente/instituição/prestador}
-
-\subsubsection{Predicado Principal}
-Este predicado identica todos os cuidados realizados por um utente,instituicão ou prestador, onde X que representa o que queremos procurar e R é onde é guardado o resultado final.
-
-\begin{verbatim}
-ponto_sete(utente,X,R) :- 
-    solucoes( (Dt,X,IDP,D,C), cuidado(Dt,X,IDP,D,C), R).
-ponto_sete(inst,X,R) :- 
-    solucoes( (Dt,IDU,IDP,D,C), ( prestador(IDP,_,_,instituicao(X,_)), cuidado(Dt,IDU,IDP,D,C)),R).
-ponto_sete(prest,X,R) :- 
-    solucoes( (Dt,IDU,X,D,C), cuidado(Dt,IDU,X,D,C), R).
-\end{verbatim}
-
-\subsubsection{Conclusão do predicado} 
-\begin{enumerate}
-\item Lista com todos os cuidados de saúde que tenham sido feitos ao utente que é fornecida á conclusão. Na conclusão é fornecido o ID pq é o identificador único dos utentes na nossa base de conhecimento.
-\item Lista com todos os cuidados de saúde que tenham sido feitos na instituição que é fornecida á conclusão.Na conclusão é fornecido o nome pq é o identificador único das instituições na nossa base de conhecimento.
-\item Lista com todos os cuidados de saúde que tenham sido feitos pelo prestador que é fornecida á conclusão. Na conclusão é fornecido o ID pq é o identificador único dos prestadores na nossa base de conhecimento.
-\end{enumerate}
-
-Decidimos que a resposta apresentada, ou seja, a lista com todos os cuidados, estes iam ser definidos pela data, o IDU, o IDP, a descrição e o custo, ou seja todos os seus argumentos, definimos portanto que para definir um cuidado de saúde, este so é definido por todos os seus argumentos.
-
-\subsubsection{Extensão do predicado}
-\begin{enumerate}
-\item No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cujo IDU seja igual ao que esta na conclusão. Como no primeiro argumento do predicado solucoes estao todos os paramentos do predicado cuidado, pois é assim que definimos os cuidados, o resultado vai ser essa lista.
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de prestador cujo nome da instituição seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os cuidados que contenham um IDP igual ao referido. Por fim, como no primeiro argumento definimos que queriamos todos os argumentos do predicado cuidado e estes sao guardados na resposta.
-\item No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cujo IDP seja igual ao que esta na conclusao. Como no primeiro argumento do predicado solucoes estao todos os paramentos do predicado cuidado, pois é assim que definimos os cuidados, o resultado vai ser essa lista.
-\end{enumerate}
-
-\subsection{Determinar todas as instituições/prestadores a que um utente já recorreu}
-
-\subsubsection{Predicado Principal}
-Este predicado indica todas as instituices e servicos a que um utente ja recorreu, onde U que representa o que queremos procurar e R é onde é guardado o resultado final.
-
-\begin{verbatim}
-ponto_oito(inst,U,R) :- 
-    solucoes( (N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,_,_,instituicao(N,_))) ,S),
-    unicos(S,R).
-ponto_oito(inst,U,R) :- 
-    solucoes( (ID,N) , ( cuidado(_,U,IDP,_,_), prestador(IDP,N,_,_) ,S)), 
-    unicos(S,R).
-\end{verbatim}
-
-\subsubsection{Conclusão do predicado} 
-\begin{enumerate}
-\item Lista com todos as instituições que tenham sido frequentadas por um utente. Na conclusao é inserido o ID do utente pois é o identificador unico do utente na nossa base de conhecimento. A resposta é uma lista com o nome das instituições pois, é o identificador unico das instituiçoes da nossa base de conhecimento.
-\item Lista com todos os prestadores de saúde que tenham prestado serviços a um dado utente. Na conclusão é inserido o ID do utente pois é o identificador único do utente na nossa base de conhecimento. A resposta é uma lista com o id e o nome dos prestadores, o id é o identificador único dos prestadores na nossa base de conhecimento, no entanto, achamos que era curto para definir com informação suficiente um prestador, como tal, decidimos descreve-lo com o id e o nome, este último nao é um identificador unico.
-\end{enumerate}
-
-\subsubsection{Extensão do predicado}
-\begin{enumerate}
-\item No predicado solucões, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de cuidado cujo IDU seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os prestadores que contenham um IDP igual ao referido, e como no primeiro argumento do predicado solucçoes especificamos que queremos o nome das instituiçoes, colocamos em evidencia no segundo argumento o que pretendemos para ser guardado na lista auxiliar para ser passada a limpo no predicado unicos.  
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de cuidado cujo IDU seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os prestadores que contenham um IDP igual ao referido, e como no primeiro argumento do predicado solucçoes especificamos que queremos o id e o nome do prestador, colocamos em evidencia no segundo argumento o que pretendemos para ser guardado na lista auxiliar para ser passada a limpo no predicado unicos.  
-\end{enumerate}
-
-\subsection{ Calcular o custo total dos cuidados de saúde por utente/especialidade/prestador/datas}
-
-\subsubsection{Predicado Principal}
-Este predicado calcula o custo total dos cuidados de saúde dado um  utente, especialidade, prestador ou datas, onde X que representa o que queremos procurar e R é onde é guardado o resultado final.
-
-\begin{verbatim}
-ponto_nove(utente,X,R) :- 
-    solucoes( (C), cuidado(Dt,X,IDP,D,C), S), 
-    somaTotal(S,R).
-ponto_nove(esp,X,R) :- 
-    solucoes( (C), (prestador(IDP,_,X,_), cuidado(_,_,IDP,_,C)) , S), 
-    somaTotal(S,R).
-ponto_nove(prest,X,R) :- 
-    solucoes( (C), cuidado(Dt,IDU,X,D,C), S), 
-    somaTotal(S,R). 
-ponto_nove(data,X,R) :- 
-    solucoes( (C), cuidado(X,IDU,IDP,D,C), S), 
-    somaTotal(S,R).
-\end{verbatim}
-
-\subsubsection{Conclusão do predicado} 
-\begin{enumerate}
-\item Valor da soma total de todos os cuidados de saúde efetuados por utente, passado como argumento na conclusão. Como o identificador unico dos utentes na nossa base de conhecimento é o ID, entao decidimos fornecer o ID á conclusao.
-\item Valor da soma total de todos os cuidados de saúde efetuados por utente, passado como argumento na conclusão. A especialidade é um argumento do predicado prestador, logo tem de ser passada como esta na base de conhecimento.
-\item  Valor da soma total de todos os cuidados de saúde efetuados por um prestador, passado como argumento na conclusão. Como o identificador único dos prestadores na nossa base de conhecimento é o ID, entao decidimos fornecer o ID á conclusão.
-\item Valor da soma total de todos os cuidados de saúde efetuados por utente, passado como argumento na conclusão. Aqui usa-se o predicado auxiliar data que já foi referido.
-\end{enumerate}    
-
-\subsubsection{Extensão do predicado}
-\begin{enumerate}
-\item No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cujo IDU seja igual ao que esta na conclusao. Como no primeiro argumento do predicado solucoes esta o argumento custo, guardamos todos os custos numa lista e fazemos a soma total da lista e colocamos o resultado no argumento R.
-\item No predicado solucoes, no segundo argumento, vamos em primeiro lugar buscar TODAS as ocorrencias de prestador cujo IDP seja igual ao colocado na conclusão, 'guardamos' o IDP de todas as ocorrencias que obedeçam a este critério para fazer um match com todos os cuidados que contenham um IDP igual ao referido, e como no primeiro argumento do predicado solucçoes especificamos que queremos custo dos cuidados, guardamos todos os custos numa lista e fazemos a soma total da lista e colocamos o resultado no argumento R.
-\item No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cujo IDP seja igual ao que esta na conclusao. Como no primeiro argumento do predicado solucoes esta o argumento custo, guardamos todos os custos numa lista e fazemos a soma total da lista e colocamos o resultado no argumento R.
-\item No predicado solucoes, no segundo argumento, vamos buscar todas as ocorrencias cuja data seja igual ao que esta na conclusao. Como no primeiro argumento do predicado solucoes esta o argumento custo, guardamos todos os custos numa lista e fazemos a soma total da lista e colocamos o resultado no argumento R.
-\end{enumerate}
-
-\chapter{Conclusão}
+\chapter{Conclusão} \label{concl}
+ 
 Este primeiro exercício ajudou bastante a ambientarmo-nos à linguagem de programacão lógica PROLOG, permitindo-nos caracterizar um universo de forma simples e estruturada.\par
 Os principais obstáculos que encontramos no desenvonvimento do projeto, foi na forma de como íriamos estruturar o nosso pensamento usando programacão em lógica, sendo que após ultrapassarmos este problema, a resolução do exercício foi fácil.\par
-Em suma, cumprimos todos os requisitos pedidos no enunciado, embora poderíamos ter feito mais algumas funcionalidades extras para o trabalho ficar mais completo. Contudo trata-se de um trabalho competente.
-
+Em suma, cumprimos todos os requisitos pedidos no enunciado, conseguido assim um trabalho sólido e competente.
+ 
+\bibliographystyle{alpha}
+\bibliography{relprojLayout}
+ 
+ 
+ 
 \end{document}

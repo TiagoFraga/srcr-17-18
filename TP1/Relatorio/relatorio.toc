@@ -1,0 +1,25 @@
+\select@language {portuges}
+\contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{2}
+\contentsline {section}{\numberline {1.1}Base de Conhecimento}{2}
+\contentsline {chapter}{\numberline {2}Desenvolvimento}{4}
+\contentsline {section}{\numberline {2.1}Registar utentes, prestadores e cuidados m\IeC {\'e}dicos.}{4}
+\contentsline {subsection}{\numberline {2.1.1}Predicado Principal}{4}
+\contentsline {subsection}{\numberline {2.1.2}Invariantes}{4}
+\contentsline {subsection}{\numberline {2.1.3}Predicados Auxiliares}{5}
+\contentsline {section}{\numberline {2.2}Remover utentes, prestadores e cuidados m\IeC {\'e}dicos.}{6}
+\contentsline {subsection}{\numberline {2.2.1}Predicado Principal}{6}
+\contentsline {subsection}{\numberline {2.2.2}Invariantes}{6}
+\contentsline {subsection}{\numberline {2.2.3}Predicados Auxiliares}{7}
+\contentsline {section}{\numberline {2.3}Identificar utentes por crit\IeC {\'e}rios de sele\IeC {\c c}\IeC {\~a}o}{7}
+\contentsline {section}{\numberline {2.4}Identificar as institui\IeC {\c c}\IeC {\~o}es prestadoras de cuidados de sa\IeC {\'u}de}{7}
+\contentsline {section}{\numberline {2.5}Identificar cuidados de sa\IeC {\'u}de prestados por institui\IeC {\c c}\IeC {\~a}o/cidade/datas}{8}
+\contentsline {section}{\numberline {2.6}Identificar os utentes de um prestador/especialidade/institui\IeC {\c c}\IeC {\~a}o}{9}
+\contentsline {section}{\numberline {2.7}Identificar cuidados de sa\IeC {\'u}de realizados por utente/institui\IeC {\c c}\IeC {\~a}o/prestador}{9}
+\contentsline {section}{\numberline {2.8}Determinar todas as institui\IeC {\c c}\IeC {\~o}es/prestadores a que um utente j\IeC {\'a} recorreu}{10}
+\contentsline {section}{\numberline {2.9}Calcular o custo total dos cuidados de sa\IeC {\'u}de por utente/especialidade/prestador/datas}{10}
+\contentsline {section}{\numberline {2.10}Predicados Gerais}{11}
+\contentsline {subsection}{\numberline {2.10.1}Predicado: nao}{11}
+\contentsline {subsection}{\numberline {2.10.2}Predicado: pertence}{11}
+\contentsline {subsection}{\numberline {2.10.3}Predicado: unicos}{12}
+\contentsline {subsection}{\numberline {2.10.4}Predicado: somaTotal}{12}
+\contentsline {chapter}{\numberline {3}Conclus\IeC {\~a}o}{13}
