@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.5)  17 MAR 2018 22:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.5)  18 MAR 2018 13:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -407,7 +407,11 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-No file relatorio.aux.
+(./relatorio.aux
+
+LaTeX Warning: Label `intro' multiply defined.
+
+)
 \openout1 = `relatorio.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
@@ -429,15 +433,19 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 64.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 64.
-[1
+ [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[1]
-No file relatorio.toc.
+[1] (./relatorio.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 3.
+)
 \tf@toc=\write4
 \openout4 = `relatorio.toc'.
 
-[1
+ [1
 
 ]
 Cap\'{\i }tulo 1.
@@ -448,7 +456,7 @@ Cap\'{\i }tulo 2.
 [4
 
 ] [5] [6] [7] [8]
-Overfull \hbox (31.63313pt too wide) in paragraph at lines 576--576
+Overfull \hbox (31.63313pt too wide) in paragraph at lines 579--579
 []\OT1/cmr/bx/n/14.4 Identificar cui-da-dos de sa^^Sude re-a-li-za-dos por uten
 -te/ins-ti-tui^^Xc~ao/prestador 
  []
@@ -460,14 +468,14 @@ No file relatorio.bbl.
 
 ] (./relatorio.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 2892 strings out of 492995
- 38221 string characters out of 6132704
- 105697 words of memory out of 5000000
- 6461 multiletter control sequences out of 15000+600000
+ 2898 strings out of 492995
+ 38305 string characters out of 6132704
+ 105753 words of memory out of 5000000
+ 6463 multiletter control sequences out of 15000+600000
  9928 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  26i,7n,32p,615b,276s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -478,7 +486,7 @@ usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
 r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
 local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/l
 ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on relatorio.pdf (15 pages, 126233 bytes).
+Output written on relatorio.pdf (15 pages, 128247 bytes).
 PDF statistics:
  81 PDF objects out of 1000 (max. 8388607)
  56 compressed objects within 1 object stream

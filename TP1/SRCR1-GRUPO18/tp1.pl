@@ -133,31 +133,31 @@ instituicao('Hospital Esposende', morada('Rua do Hospital', 'Esposende')).
 
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
 
-+utente(ID,N,I,M) :: (solucoes( (ID), (utente(ID,Ns,Is,Ms)),S), comprimento(S,N), N==1).
++utente(ID,_,_,_) :: (solucoes( (ID), (utente(ID,_,_,_)),S), comprimento(S,N), N==1).
 
 
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
 
 
-+prestador(ID,N,E,I) :: (solucoes( (ID), (prestador(ID,Ns,Es,Is)), S),comprimento(S,N),N==1).
++prestador(ID,_,_,_) :: (solucoes( (ID), (prestador(ID,_,_,_)), S),comprimento(S,N),N==1).
 
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
 
 
-+cuidado(Dt,IDU,IDP,D,C) :: (solucoes( (Dt,IDU,IDP),(cuidado(Dt,IDU,IDP,Ds,Cs)),S),comprimento(S,N),N==1).
++cuidado(Dt,IDU,IDP,_,_) :: (solucoes( (Dt,IDU,IDP),(cuidado(Dt,IDU,IDP,_,_)),S),comprimento(S,N),N==1).
 
 
 % Invareiante Referencial: nao permitir a insercao de conhecimento, por falta de conhecimento.
 
 
-+cuidado(Dt,IDU,IDP,D,C) :: (solucoes( (IDU),(utente(IDU,Ns,Is,Ms)),S),comprimento(S,N),N==0).
-+cuidado(Dt,IDU,IDP,D,C) :: (solucoes( (IDP),(prestador(IDP,Ns,Es,Is)),S),comprimento(S,N),N==0).
++cuidado(_,IDU,_,_,_) :: (solucoes( (IDU),(utente(IDU,_,_,_)),S),comprimento(S,N),N==0).
++cuidado(_,_,IDP,_,_) :: (solucoes( (IDP),(prestador(IDP,_,_,_)),S),comprimento(S,N),N==0).
 
 
 
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
 
-+instituicao(N,M) :: (solucoes( (N), instituicao(N,M) ,S), N==1).
++instituicao(N,_) :: (solucoes( (N), instituicao(N,_) ,S), N==1).
 
 
 
@@ -192,12 +192,12 @@ registar( Termo ) :-
 % Invariante Estrutural:  nao permitir a remoção de conhecimento
 
 
--utente(ID,N,I,M) :: (solucoes( (ID), (cuidado(Dts,ID,IDPs,Ds,Cs)) , S),comprimento(S,N),N>0).
+-utente(ID,_,_,_) :: (solucoes( (ID), (cuidado(_,ID,_,_,_)) , S),comprimento(S,N),N==0).
 
 % Invariante Estrutural:  nao permitir a remoção de conhecimento
 
 
--prestador(ID,N,E,I) :: (solucoes( (ID), (cuidado(Dts,IDUs,ID,Ds,Cs)), S),comprimento(S,N),N==0).
+-prestador(ID,_,_,_) :: (solucoes( (ID), (cuidado(_,_,ID,_,_)), S),comprimento(S,N),N==0).
 
 % Invariante Estrutural:  nao permitir a remoção de conhecimento
 
@@ -207,7 +207,7 @@ registar( Termo ) :-
 
 % Invariante Estrutural:  nao permitir a remoção de conhecimento
 
--instituicao(N,M) :: (solucoes( (N,M), prestador(_,_,_,(N,M)) , S),comprimento(S,N) N==0).
+-instituicao(N,M) :: (solucoes( (N,M), prestador(_,_,_,instituicao(N,M)) , S),comprimento(S,N), N==0).
 
 
 %---------------------------------
@@ -216,9 +216,10 @@ remocao(T) :- retract(T).
 remocao(T) :- assert(T),!,fail.
 
 remover( Termo ) :-
-	solucoes( Invariante,+Termo::Invariante,Lista), 
-				remocao(Termo), 
-					teste(Lista).
+	Termo,
+		solucoes(Invariante, -Termo::Invariante, Lista),
+			remocao(Termo),
+				teste(Lista).
 
 
 
@@ -250,10 +251,10 @@ ponto_tres(moradas,R) :- solucoes((M),utente(IDs,Ns,Is,M),R).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
-ponto_quatro(todas,R) :- solucoes( (N) , instituicao(N,M), R).
+ponto_quatro(todas,R) :- solucoes( (N) , instituicao(N,_), R).
 
 
-ponto_quatro(cuidados,R) :- solucoes( (N), (cuidado(_,_,IDP,_,_),prestador(IDP,_,_,instituicao(N,M))) , S),unicos(S,R).
+ponto_quatro(cuidados,R) :- solucoes( (N), (cuidado(_,_,IDP,_,_),prestador(IDP,_,_,instituicao(N,_))) , S),unicos(S,R).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -

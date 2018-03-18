@@ -157,7 +157,7 @@ Registo na base de conhecimento os predicados utentes, prestadores e cuidados m�
 \subsection{Predicado Principal}
  
 \begin{verbatim}
-resgistar T -> {V,F}
+registar T -> {V,F}
 \end{verbatim}
  
 O registo de utentes,prestadores e cuidados prestados é efetuado a partir do predicado registar. 
@@ -175,50 +175,52 @@ Este predicado tem em conta os invariantes criados, de modo a evitar a inserçã
 \subsection{Invariantes}
 
 \begin{verbatim}
-+utente(ID,N,I,M) :: 
-        (solucoes( (ID), 
-            (utente(ID,Ns,Is,Ms)),S), 
-                comprimento(S,N), N==1).
++utente(ID,_,_,_) :: 
+    (solucoes( (ID), 
+        (utente(ID,_,_,_)),S), 
+            comprimento(S,N), N==1).
 \end{verbatim}
 Este invariante está definido de forma a não permitir informação repetida de utentes na nossa base de conhecimento. Pode estar repetido através do ID, ou seja, cada utente tem um ID único.
 \bigbreak
 
 \begin{verbatim}
-+prestador(ID,N,E,I) :: 
-        (solucoes( (ID), 
-            (prestador(ID,Ns,Es,Is)), S),
-                comprimento(S,N),N==1).
++prestador(ID,_,_,_) :: 
+    (solucoes( (ID), 
+        (prestador(ID,_,_,_)), S),
+            comprimento(S,N),N==1).
 \end{verbatim}
 Este invariante está definido de forma a não permitir informação repetida de prestadores na nossa base de conhecimento. Pode estar repetido através do ID, ou seja, cada prestador tem um ID único.
 \bigbreak
 
 \begin{verbatim}
-+cuidado(Dt,IDU,IDP,D,C) :: 
-        (solucoes( (Dt,IDU,IDP),
-            (cuidado(Dt,IDU,IDP,Ds,Cs)),S),
-                comprimento(S,N),N==1).
++cuidado(Dt,IDU,IDP,_,_) :: 
+    (solucoes( (Dt,IDU,IDP),
+        (cuidado(Dt,IDU,IDP,_,_)),S),
+            comprimento(S,N),N==1).
 \end{verbatim}
 Este invariante está definido de forma a não permitir informação repetida de cuidados de saude na nossa base de conhecimento. Pode estar repetido através da data, do IDU e do IDP em simultâneo, ou seja, cada cuidado de saude tem um trio data, IDU e IDP único.
 \bigbreak
 
 \begin{verbatim}
-+cuidado(Dt,IDU,IDP,D,C) :: 
-        (solucoes( (IDU),
-            (utente(IDU,Ns,Is,Ms)),S),
-                comprimento(S,N),N==0).
++cuidado(_,IDU,_,_,_) :: 
+    (solucoes( (IDU),
+        (utente(IDU,_,_,_)),S),
+            comprimento(S,N),N==0).
 
-+cuidado(Dt,IDU,IDP,D,C) :: 
-        (solucoes( (IDP),
-            (prestador(IDP,Ns,Es,Is)),S),
-                comprimento(S,N),N==0).
+
+
++cuidado(_,_,IDP,_,_) :: 
+    (solucoes( (IDP),
+        (prestador(IDP,_,_,_)),S),
+            comprimento(S,N),N==0).
 \end{verbatim}
 Estes dois invariantes protegem a nossa base de conhecimento, de maneira a não ser inserido conhecimento por falta de conhecimento, ou seja, nao é possivel adicionar um cuidado de saude com um determinado IDU ou IDP caso estes nao constem no predicado utente ou prestador, respetivamente.
 \bigbreak
 
 \begin{verbatim}
-+instituicao(N,M) :: 
++instituicao(N,_) :: 
     (solucoes( (N), 
-        instituicao(N,M) ,S), 
+        instituicao(N,_) ,S), 
             N==1).
 \end{verbatim}
 Este invariante está definido de forma a não permitir informação repetida de instituições na nossa base de conhecimento. Pode estar repetido através do nome, ou seja, cada instituição tem um nome único.
@@ -305,9 +307,10 @@ A remoção de utentes,prestadores e cuidados prestados é efetuado a partir do 
 
 \begin{verbatim}
 remover( Termo ) :-
-    solucoes( Invariante,+Termo::Invariante,Lista), 
-                remocao(Termo), 
-                    teste(Lista).
+    Termo,
+        solucoes(Invariante, -Termo::Invariante, Lista),
+            remocao(Termo),
+                teste(Lista).
 \end{verbatim}
 
 Este predicado tem em conta os invariantes criados, de modo a evitar a remoção de conhecimento critico, e de modo a manter a consistência da nossa base de conhecimento. Os invariantes utilizados para o efeito são os seguintes:    
@@ -315,18 +318,18 @@ Este predicado tem em conta os invariantes criados, de modo a evitar a remoção
 \subsection{Invariantes}
 
 \begin{verbatim}
--utente(ID,N,I,M) :: 
+-utente(ID,_,_,_) :: 
     (solucoes( (ID), 
-        (cuidado(Dts,ID,IDPs,Ds,Cs)) , S),
-            comprimento(S,N),N>0).
+        (cuidado(_,ID,_,_,_)) , S),
+            comprimento(S,N),N==0).
 \end{verbatim}
 Este invariante está definido de forma a não permitir remoção de utentes, quando estes pertencem ao predicado do conhecimento de cuidados medicos.
 \bigbreak
 
 \begin{verbatim}
--prestador(ID,N,E,I) :: 
+-prestador(ID,_,_,_) :: 
     (solucoes( (ID), 
-        (cuidado(Dts,IDUs,ID,Ds,Cs)), S),
+        (cuidado(_,_,ID,_,_)), S),
             comprimento(S,N),N==0).
 \end{verbatim}
 Este invariante está definido de forma a não permitir remoção de prestadores, quando estes pertencem ao predicado do conhecimento de cuidados medicos.
@@ -342,10 +345,10 @@ Este invariante está definido de forma a não permitir remoção de cuidados, q
 \bigbreak
 
 \begin{verbatim}
--instituicao(N,M) :: 
+-instituicao(N,M) ::   
     (solucoes( (N,M), 
-        prestador(_,_,_,(N,M)) , S), 
-            comprimento(S,N),N==0).
+        prestador(_,_,_,instituicao(N,M)) , S),
+            comprimento(S,N), N==0).
 \end{verbatim} 
 Este invariante está definido de forma a não permitir remoção de instituições, quando estes pertecem ao predicado do conhecimento de prestadores.
 \bigbreak
