@@ -177,7 +177,7 @@ instituicao('Hospital Esposende', morada('Rua do Hospital', 'Esposende')).
 
 % Invariante Estrutural:  nao permitir a remoção de conhecimento
 
--instituicao(N,M) :: (solucoes( (N,M), prestador(_,_,_,instituicao(N,M)) , S),comprimento(S,N), N==0).
+-instituicao(Ns,M) :: (solucoes( (Ns,M), prestador(_,_,_,instituicao(Ns,M)) , S),comprimento(S,N), N==0).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
@@ -441,7 +441,8 @@ nulo(interdito3).
 % Instituição -> Incerto
 %---------------------------------
 
-
+instituicao('Hospital Coimbra', incerto7).
+excecao(instituicao(N,M)) :- instituicao(N,incerto7).
 
 
 
@@ -449,14 +450,18 @@ nulo(interdito3).
 % Instituição -> Impreciso
 %---------------------------------
 
-
+excecao(instituicao('Hospital de Santarem', morada('Rua Torta','Santarem'))).
+excecao(instituicao('Hospital de Santarem', morada('Rua Esquerda','Santarem'))).
 
 
 %---------------------------------
 % Instituição -> Interdito
 %---------------------------------
 
+instituicao('Hospital Azurem', interdito4).
+excecao(instituicao(N,M)) :- instituicao(N,interdito4).
 
+nulo(interdito4).
 
 
 
@@ -538,7 +543,7 @@ nulo(interdito3).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Quarto Ponto : Desenvolver um sistema de inferência capaz de 
+% Quinto Ponto : Desenvolver um sistema de inferência capaz de 
 % implementar os mecanismos de raciocínio inerentes a estes sistemas.
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
