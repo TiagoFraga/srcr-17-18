@@ -1,0 +1,27 @@
+\select@language {portuges}
+\contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{2}
+\contentsline {chapter}{\numberline {2}An\IeC {\'a}lise do Problema}{3}
+\contentsline {chapter}{\numberline {3}Enunciado}{4}
+\contentsline {section}{\numberline {3.1}Base de Conhecimento}{4}
+\contentsline {subsection}{\numberline {3.1.1}Enunciado}{4}
+\contentsline {subsubsection}{Utentes}{4}
+\contentsline {subsubsection}{Prestadores:}{4}
+\contentsline {subsubsection}{Cuidados M\IeC {\'e}dicos:}{5}
+\contentsline {subsection}{\numberline {3.1.2}Extra - Enuncidado}{6}
+\contentsline {subsubsection}{Institui\IeC {\c c}\IeC {\~o}es:}{6}
+\contentsline {subsubsection}{Moradas:}{6}
+\contentsline {subsubsection}{Datas:}{6}
+\contentsline {section}{\numberline {3.2}Representar conhecimento Positivo e Negativo}{7}
+\contentsline {section}{\numberline {3.3}Representar casos de conhecimento imperfeito, pela utiliza\IeC {\c c}\IeC {\~a}o de valores nulos de todos os tipos estudados}{7}
+\contentsline {subsection}{\numberline {3.3.1}Conhecimento Imperfeito - Incerto}{7}
+\contentsline {subsection}{\numberline {3.3.2}Conhecimento Imperfeito - Impreciso}{9}
+\contentsline {subsection}{\numberline {3.3.3}Conhecimento Imperfeito - Interdito}{9}
+\contentsline {section}{\numberline {3.4}Manipular invariantes que designem restric\IeC {\~o}es \IeC {\`a} inser\IeC {\c c}\IeC {\~a}o e \IeC {\`a} remo\IeC {\c c}\IeC {\~a}o de conhecimento do sistema}{10}
+\contentsline {subsection}{\numberline {3.4.1}Invariantes - Conhecimento Imperfeito Incerto}{10}
+\contentsline {subsection}{\numberline {3.4.2}Invariantes - Conhecimento Imperfeito Impreciso}{11}
+\contentsline {subsection}{\numberline {3.4.3}Invariantes - Conhecimento Imperfeito Interdito}{12}
+\contentsline {section}{\numberline {3.5}Lidar com a problem\IeC {\'a}tica da evolu\IeC {\c c}\IeC {\~a}o do conhecimento, criando os procedimentos adequados}{12}
+\contentsline {section}{\numberline {3.6}Desenvolver um sistema de infer\IeC {\^e}ncia capaz de implementar os mecanismos de racioc\IeC {\'\i }nio inerentes a estes sistemas}{12}
+\contentsline {subsection}{\numberline {3.6.1}Demo - Apresentado nas Aulas}{12}
+\contentsline {subsection}{\numberline {3.6.2}Demos - Desenvolvidos para o trabalho pr\IeC {\'a}tico}{13}
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~a}o}{14}
