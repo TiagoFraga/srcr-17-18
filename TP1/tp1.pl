@@ -157,7 +157,7 @@ instituicao('Hospital Esposende', morada('Rua do Hospital', 'Esposende')).
 
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
 
-+instituicao(N,_) :: (solucoes( (N), instituicao(N,_) ,S), N==1).
++instituicao(N,_) :: (solucoes( (N), instituicao(N,_) ,S), comprimento(S,T), T==1).
 
 
 
@@ -207,11 +207,11 @@ registar( Termo ) :-
 
 % Invariante Estrutural:  nao permitir a remoção de conhecimento
 
--instituicao(N,M) :: (solucoes( (N,M), prestador(_,_,_,instituicao(N,M)) , S),comprimento(S,N), N==0).
+-instituicao(N,M) :: (solucoes( (N,M), prestador(_,_,_,instituicao(N,M)) , S),comprimento(S,T), T==0).
 
 
 %---------------------------------
-
+e
 remocao(T) :- retract(T).
 remocao(T) :- assert(T),!,fail.
 

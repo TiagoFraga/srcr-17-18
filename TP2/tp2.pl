@@ -162,7 +162,7 @@ excecao(instituicao('Estado do Dragao', morada('Rua das Antas','Porto'))).
 
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
 
-+instituicao(N,_) :: (solucoes( (N), instituicao(N,_) ,S), N==1).
++instituicao(N,_) :: (solucoes( (N), instituicao(N,_) ,S), comprimento(S,T), T==1).
 
 
 %---------------------------------
@@ -370,7 +370,7 @@ excecao(utente(13,'Mane',27,morada('Rua 1','Liverpool'))).
 utente(14,'Henderson',interdito1,morada('Rua 7','Liverpool')).
 excecao(utente(ID,N,I,M)) :- utente(ID,N,interdito1,M).
 nulo(interdito1).
-+utente(ID,N,I,M) :: solucoes((ID,N,Is,M), utente(14,'Henderson',interdito1,morada('Rua 7','Liverpool')), nao(nulo(Is)),S), comprimento(S,N), N==0.
++utente(ID,N,I,M) :: solucoes((ID,N,Is,M), utente(14,'Henderson',interdito1,morada('Rua 7','Liverpool')), nao(nulo(Is)),S), comprimento(S,T), T==0.
 
 
 
@@ -408,7 +408,7 @@ prestador(18,'Gomes','Radiologia',instituicao('Hospital Sao Joao', morada('Rua d
 prestador(19,'Mafalda','Fisioterapia',interdito2).
 excecao(prestador(ID,N,E,I)) :- excecao(prestador(ID,N,E,interdito2)).
 nulo(interdito2).
-+prestador(ID,N,E,I) :: solucoes((ID,N,E,Is), prestador(19,'Mafalda','Fisioterapia',interdito2), nao(nulo(Is)),S ), comprimento(S,N), N==0.
++prestador(ID,N,E,I) :: solucoes((ID,N,E,Is), prestador(19,'Mafalda','Fisioterapia',interdito2), nao(nulo(Is)),S ), comprimento(S,T), T==0.
 
 
 
@@ -471,8 +471,14 @@ desc(incerto7).
 excecao(instituicao('Hospital de Barcelona', morada('Rua Direita','Barcelona'))).
 excecao(instituicao('Hospital de Barcelona', morada('Rua Esquerda','Barcelona'))).
 
+%---------------------------------
+% Instituição -> Interdito
+%---------------------------------
 
-\
+instituicao('Hospital Manchester', interdito4).
+excecao(instituicao(N,M)) :- instituicao(N,interdito4).
+nulo(interdito4).
++instituicao(N,M) :: solucoes((N,Ms),instituicao(’Hospital Manchester’, interdito4),nao(nulo(Ms)),S),comprimento(S,T),T==0.
 
 
 
@@ -489,14 +495,14 @@ excecao(instituicao('Hospital de Barcelona', morada('Rua Esquerda','Barcelona'))
 % Invariantes para não existir evolução de conhecimento imperfeito incerto.
 
 +utente(ID,N,I,M) :: (solucoes((ID,N,I,M),(utente(ID,N,I,M),nao(desc(ID)),nao(desc(N)),nao(desc(I)),nao(desc(M))),S),
-                     comprimento(S,N),
-                     N == 0).
+                     comprimento(S,T),
+                     T == 0).
 
 
 
 +prestador(ID,N,E,I) :: (solucoes((ID,N,E,I),(prestador(ID,N,E,I),nao(desc(ID)),nao(desc(N)),nao(desc(E)),nao(desc(I))),S),
-                                   comprimento(S,N),
-                                   N == 0).
+                                   comprimento(S,T),
+                                   T == 0).
 
 
 
@@ -511,16 +517,16 @@ excecao(instituicao('Hospital de Barcelona', morada('Rua Esquerda','Barcelona'))
 % Invariantes para não existir evolução de conhecimento imperfeito impreciso.
 
 +excecao(utente(ID,N,I,M)) :: (solucoes((ID,N,I,M),(utente(ID,N,I,M),nao(excecao(utente(ID,N,I,M)))),S),
-                              comprimento(S,N),
-                              N == 0). 
+                              comprimento(S,T),
+                              T == 0). 
 
 +excecao(prestador(ID,N,E,I)) :: (solucoes((ID,N,E,I),(prestador(ID,N,E,I),nao(excecao(prestador(ID,N,E,I)))),S),
-                                           comprimento(S,N),
-                                           N == 0). 
+                                           comprimento(S,T),
+                                           T == 0). 
 
 +excecao(cuidado(Dt,IDU,IDP,D,C)) :: (solucoes((Dt,IDU,IDP,D,C),(cuidado(Dt,IDU,IDP,D,C),nao(excecao(cuidado(Dt,IDU,IDP,D,C)))),S),
-                                        comprimento(S,N),
-                                        N == 0).
+                                        comprimento(S,T),
+                                        T == 0).
 
 +excecao(instituicao(N,M)) :: (solucoes((N,M),instituicao(N,M),nao(excecao(N,M)),S),comprimento(S,T),T==0).
 
@@ -530,17 +536,18 @@ excecao(instituicao('Hospital de Barcelona', morada('Rua Esquerda','Barcelona'))
 
 +utente(ID,N,I,M) :: (solucoes((ID,N,I,M),(utente(ID,N,I,M),nao(nulo(ID)),nao(nulo(N)),nao(nulo(I)),nao(nulo(M))),S),
                      comprimento(S,N),
-                     N == 0).
+                     T == 0).
 
 +prestador(ID,N,E,I) :: (solucoes((ID,N,E,I),(prestador(ID,N,E,I),nao(nulo(ID)),nao(nulo(N)),nao(nulo(E)),nao(nulo(I))),S),
                                    comprimento(S,N),
-                                   N == 0).
+                                   T == 0).
 
 +cuidado(Dt,IDU,IDP,D,C) :: (solucoes((Dt,IDU,IDP,D,C),(cuidado(Dt,IDU,IDP,D,C),nao(nulo(Dt)),nao(nulo(IDU)),nao(nulo(IDP)),nao(nulo(D)),nao(nulo(C))),S),
                                comprimento(S,N),
                                N == 0).
 
 +instituicao(N,M) :: (solucoes((N,M), instituicao(N,M), nao(nulo(N)),nao(nulo(M)),S),comprimento(S,T),T==0).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
