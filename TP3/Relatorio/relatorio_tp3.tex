@@ -6,6 +6,7 @@
 \usepackage{fancyvrb}
 \usepackage{titlesec}
 \usepackage{graphicx}
+\usepackage{float}
  
 %\usepackage{alltt}
 %\usepackage{fancyvrb}
@@ -109,7 +110,7 @@ De forma a procedermos a uma correta análise dos dados e efetuar trabalho sóli
 No primeiro ponto, pretendemos fazer uma análise aos dados fornecidos de forma a estabelcer os principais atributos para definir a qualidade dos vinhos, e com o auxilio da ferramenta \textbf{WEKA}, iremos verificar as estatiscas de cada atributo para saber de que forma influenciam a decisão final. Após a analise decidiremos se existe algum atributo a alterar ou se podemos passar para a fase seguinte com os dados inalteráveis.
 De seguida, iremos organizar os dados de maneiras diferentes para fornecer a diferentes redes neuronais, com o intuito que no fim possamos avaliar os resultados consoante diferentes neurónios de entrada para diferentes redes. Após conversa com o professor, decidimos que iríamos avançar com três opções.
 A primeira opção irá ser composta por duas redes neuronais com 11 neuronios cada uma. Cada neurónio é caracterizado pelos 11 atributos da lista em cima.
-A segunda opção pretendemos criar uma redes neuronal com 12 neurónios de entrada. Alem dos atributos já apresentados, o deciomo segundo neurónio é caracterizado por um novo atributo:
+A segunda opção pretendemos criar uma redes neuronal com 12 neurónios de entrada. Alem dos atributos já apresentados, o decimo segundo neurónio é caracterizado por um novo atributo:
 \bigbreak
 \begin{itemize}
 \item{\textbf{type} - tipo do vinho(0 - Tinto; 1- Branco);} 
@@ -963,20 +964,20 @@ test <- data[3001:4898,]
 
 \subsubsection{Previsão da Qualidade do Vinho Tinto}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{tabelas/1} 
 \caption{Valor do RMSE obtido para os dados do weka.}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{tabelas/2} 
 \caption{Valor do RMSE obtido para os dados do R.}
 \end{figure} 
 
 
-
+Na previsão da qualidade do vinho tinto, através dos dados tratados pelo \textbf{WEKA} o valor mais baixo de \textit{RMSE} face ao valor mais baixo (possivel) de \textit{threshold} é a linha com 4 nodos na camada intermédia, enquanto que nos dados tratados pelo \textit{R} o valor mais baixo de \textit{RMSE} é na camda intermédia com 3 nodos. Embora no segundo caso o \textit{RMSE} seja ligeiramente superior em contrapartida o \textit{threshold} é ligeiramente inferior, deste modo, concluimos que tanto num caso como noutro podemos fazer uma análise correta dos dados.
 
 
 
@@ -985,19 +986,22 @@ test <- data[3001:4898,]
 
 \subsubsection{Previsão da Qualidade do Vinho Branco}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{tabelas/3} 
 \caption{Valor do RMSE obtido para os dados do weka.}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{tabelas/4} 
 \caption{Valor do RMSE obtido para os dados do R.}
 \end{figure} 
 
 
+
+
+Na previsão da qualidade do vinho branco, em ambos os scripts, o valor mais baixo de \textit{RMSE} foi obtido na camada intermédia com dois nodos, sendo o \textit{threshold} igual em ambos os casos. Concluimos que estes valores face aos valores da previsão da qualidade do vinho tinto eram ligeiramente superiores, no entanto, são inferiores aos que vamos ver a seguir.
 
 
 
@@ -1130,24 +1134,27 @@ test <- data[5001:6497,]
   plot(results_R$current, results_R$prediction)
 
 \end{verbatim}
-
+\bigskip
 
 
 \subsection{Conclusões e resultados obtidos}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{tabelas/5} 
 \caption{Valor do RMSE obtido para os dados do weka.}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{tabelas/6} 
 \caption{Valor do RMSE obtido para os dados do R.}
 \end{figure} 
 
+\bigskip
 
+
+Após a observação dos resultados, denotamos de imediato que todos os valores são substancialmente maiores que os anteriores. Embora nao haja muita diferença nos valores do \textit{RMSE} obtidos através do script do \textit{WEKA} e do \textit{R}, para o primeiro caso o valor mais baixo obtido foi na camada intermédia com 5 nodos e um \textit{threshold} de 0,5 enquanto que no segundo caso o valor mais baixo foi alcançado num na camada intermédia com 4 nodos e o mesmo \textit{threshold}.
 
 
 
@@ -1251,24 +1258,28 @@ test <- data[3001:4898,]
 \subsection{Conclusões e resultados obtidos}
 
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{tabelas/7} 
 \caption{Valor do RMSE obtido para os dados do R.}
 \end{figure} 
 
+\bigskip
 
+Neste último caso o valor mais baixo obtido foi na camada intermédia com 2 nodos e um \textit{threshold} de 0,1. Mais uma vez, em relação ao caso anterior todos os testes que fizemos para esta situação têm no geral um valor do \textit{RMSE} superior que nos oferece o mote para fazermos uma conclusão geral sobre qual a melhor abordagem a usar.
 
 
 
 
 \chapter{Conclusão} \label{concl}
 
-blblblblbbl
+A realização do terceiro exercício desta unidade curricular foi um bom modo de familiarizar com a utilização de sistemas não simbólicos na representação de conhecimento e no desenvolvimento de mecanismos de raciocínio.
+A principal dificuldade que encontramos foi exatamente perceber como é que uma rede neuronal funciona. Isto é, como é que as variáveis que colocamos, os número de camadas intermédias e nodos que escolhemos e como é que o \textit{threshold} influenciam o seu treino.
+Através da realização de vários testes percebemos que a adição de camadas intermédias pouco influência a qualidade da rede, é a escolha de variáveis e sobretudo, o tratamento dos dados, que mais influenciam a sua qualidade.
+Deste modo, através do trabalho realizado, podemos afirmar que a melhor maneira de abordar o problema é através da \textbf{opção A} pois foi com ela que obtemos os melhores valores de \textit{RMSE} com os valores mais baixos de \textit{threshold}.
  
 \bibliographystyle{alpha}
 \bibliography{relprojLayout}
- 
  
  
 \end{document}

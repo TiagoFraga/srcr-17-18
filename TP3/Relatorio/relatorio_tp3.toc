@@ -23,8 +23,8 @@
 \contentsline {subsubsection}{Previs\IeC {\~a}o da Qualidade do Vinho Branco}{20}
 \contentsline {section}{\numberline {4.2}Op\IeC {\c c}\IeC {\~a}o B - 1 RNA abastecida por um DataSet de 12 atributos}{21}
 \contentsline {subsection}{\numberline {4.2.1}Script em R}{21}
-\contentsline {subsection}{\numberline {4.2.2}Conclus\IeC {\~o}es e resultados obtidos}{22}
+\contentsline {subsection}{\numberline {4.2.2}Conclus\IeC {\~o}es e resultados obtidos}{23}
 \contentsline {section}{\numberline {4.3}Op\IeC {\c c}\IeC {\~a}o C - 1 RNA abastecida por um DataSet de 22 atributos}{23}
 \contentsline {subsection}{\numberline {4.3.1}Script em R}{23}
 \contentsline {subsection}{\numberline {4.3.2}Conclus\IeC {\~o}es e resultados obtidos}{24}
-\contentsline {chapter}{\numberline {5}Conclus\IeC {\~a}o}{25}
+\contentsline {chapter}{\numberline {5}Conclus\IeC {\~a}o}{26}
