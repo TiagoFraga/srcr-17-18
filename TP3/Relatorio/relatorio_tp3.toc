@@ -1,7 +1,30 @@
 \select@language {portuges}
 \contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{2}
 \contentsline {chapter}{\numberline {2}An\IeC {\'a}lise do Problema}{3}
-\contentsline {chapter}{\numberline {3}An\IeC {\'a}lise dos Dados para a representa\IeC {\c c}\IeC {\~a}o do conhecimento do problema}{5}
-\contentsline {chapter}{\numberline {4}Tratamento dos Dados para alimentar as RNA's}{6}
-\contentsline {chapter}{\numberline {5}Topologias, aprendizagem e testes das RNA's}{7}
-\contentsline {chapter}{\numberline {6}Conclus\IeC {\~a}o}{8}
+\contentsline {chapter}{\numberline {3}An\IeC {\'a}lise e Tratamento dos Dados para a representa\IeC {\c c}\IeC {\~a}o do conhecimento do problema}{6}
+\contentsline {section}{\numberline {3.1}DataSet - Vinho Tinto}{7}
+\contentsline {subsection}{\numberline {3.1.1}Script - WEKA}{7}
+\contentsline {subsection}{\numberline {3.1.2}Script - R}{8}
+\contentsline {section}{\numberline {3.2}DataSet - Vinho Branco}{9}
+\contentsline {subsection}{\numberline {3.2.1}Script - WEKA}{9}
+\contentsline {subsection}{\numberline {3.2.2}Script - R}{10}
+\contentsline {section}{\numberline {3.3}DataSet - Vinho Tinto e Branco distinguidos pelo tipo (12 atributos)}{11}
+\contentsline {subsection}{\numberline {3.3.1}Script - WEKA}{11}
+\contentsline {subsection}{\numberline {3.3.2}Script - R}{12}
+\contentsline {section}{\numberline {3.4}DataSet - Vinho Tinto e Branco (22 atributos)}{13}
+\contentsline {subsection}{\numberline {3.4.1}Script - WEKA}{13}
+\contentsline {subsection}{\numberline {3.4.2}Script - R}{14}
+\contentsline {chapter}{\numberline {4}Topologias, aprendizagem e testes das RNA's}{16}
+\contentsline {section}{\numberline {4.1}Op\IeC {\c c}\IeC {\~a}o A - 2 RNA's abastecidas com 2 DataSets}{16}
+\contentsline {subsection}{\numberline {4.1.1}Script em R - Vinho Tinto}{16}
+\contentsline {subsection}{\numberline {4.1.2}Script em R - Vinho Branco}{18}
+\contentsline {subsection}{\numberline {4.1.3}Conclus\IeC {\~o}es e Resultados Obtidos}{20}
+\contentsline {subsubsection}{Previs\IeC {\~a}o da Qualidade do Vinho Tinto}{20}
+\contentsline {subsubsection}{Previs\IeC {\~a}o da Qualidade do Vinho Branco}{20}
+\contentsline {section}{\numberline {4.2}Op\IeC {\c c}\IeC {\~a}o B - 1 RNA abastecida por um DataSet de 12 atributos}{21}
+\contentsline {subsection}{\numberline {4.2.1}Script em R}{21}
+\contentsline {subsection}{\numberline {4.2.2}Conclus\IeC {\~o}es e resultados obtidos}{22}
+\contentsline {section}{\numberline {4.3}Op\IeC {\c c}\IeC {\~a}o C - 1 RNA abastecida por um DataSet de 22 atributos}{23}
+\contentsline {subsection}{\numberline {4.3.1}Script em R}{23}
+\contentsline {subsection}{\numberline {4.3.2}Conclus\IeC {\~o}es e resultados obtidos}{24}
+\contentsline {chapter}{\numberline {5}Conclus\IeC {\~a}o}{25}
